@@ -41,7 +41,7 @@
 .nav-text a {
     text-decoration: none;
     color: black;
-    font-size: 18px;
+    font-size: 28px;
     width: 95%;
     height: 100%;
     display: flex;
@@ -68,4 +68,5 @@
 }
 span {
     margin-left: 16px;
+    font-size: x-large;
 }
