@@ -20,7 +20,7 @@ const LogIn = () => {
         }
 
         const status = await signIn(data);
-        (status ? navigate('/dashboard') : navigate('/logIn'))
+        (status ? navigate('/home') : navigate('/logIn'))
     }
 
   return (

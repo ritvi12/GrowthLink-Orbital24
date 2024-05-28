@@ -23,17 +23,17 @@ const NavBar = () => {
    
     <IconContext.Provider value={{color: 'black'}}>
       <div className='navbar'>
-        <Link to="/" className='menu-bars'>
+        <div className='menu-bars'>
             <FaIcons.FaBars onClick={showSideBar} />
-        </Link>
+        </div>
         <div className='Name'>GROWTHLINK</div>
       </div>
       <nav className= {sidebar ? 'nav-menu active' : 'nav-menu'}>
         <ul className='nav-menu-items' onClick={showSideBar}>
             <li className='navbar-toggle'>
-                <Link to="#" className='menu-bars'>
+                <div className='menu-bars'>
                     <AiIcons.AiOutlineClose />
-                </Link>
+                </div>
             </li>
            
             {isLoggedIn && NavBarData.map((item, index) => {
@@ -47,7 +47,7 @@ const NavBar = () => {
                 )
             })}
             <div className='button'>
-              <Link to={isLoggedIn ? "/" : "/signUp"}>
+              <Link to={isLoggedIn ? "/home" : "/signUp"}>
                 {isLoggedIn ? <>
                   <Button buttonStyle='btn--outline' link="/" onClick={signOut}>SIGN OUT</Button>
                 </> : <>

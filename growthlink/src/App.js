@@ -6,6 +6,7 @@ import Dashboard from './pages/Dashboard';
 import Calendar from './pages/Calendar';
 import LogIn from './components/LogIn';
 import SignUp from './components/SignUp';
+import LandingPage from './pages/LandingPage';
 import { AuthContext } from './AuthContext';
 
 function App() {
@@ -15,11 +16,12 @@ function App() {
       path: '/',
       element: <NavBar/>,
       children:[
-        {path: '/', element:<Home/>},
+        {path: '/', element:<LandingPage/>},
         {path: '/logIn', element:<LogIn/> },
         {path: '/signUp', element:<SignUp/> },
+        {path: '/home', element:<Home/>},
         {path: '/dashboard', element:<Dashboard/>},
-        {path: '/calendar', element:<Calendar/>},
+        {path: '/calendar', element:<Calendar/>}
       ]
     }
   ])
