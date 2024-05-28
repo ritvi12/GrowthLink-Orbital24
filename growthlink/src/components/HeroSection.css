@@ -1,0 +1,21 @@
+
+.hero-container {
+    background: url(/Users/ritviagarwal/GrowthLink-Orbital24/growthlink/public/images/GrowthLink.png) center center/cover no-repeat;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: inset 0 0 0 1000px rgba(0,0,0,0,2);
+    object-fit: fill;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Arial, sans-serif;
+}
+
+.hero-btns {
+    margin-top: 400px;
+}
+
+  
+  
+ 
