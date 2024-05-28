@@ -1,7 +1,6 @@
 import React from 'react';
 import './Button.css';
 import { Link } from 'react-router-dom';
-import Modal from 'react-responsive-modal';
 
 const STYLES = ['btn--primary', 'btn--outline', 'btn--test'];
 
@@ -12,7 +11,8 @@ export const Button = ({
   type,
   onClick,
   buttonStyle,
-  buttonSize
+  buttonSize,
+  link
 }) => {
   const checkButtonStyle = STYLES.includes(buttonStyle)
     ? buttonStyle
@@ -22,7 +22,7 @@ export const Button = ({
   
   return (
     <>
-    <Link to='/sign-up' className='btn-mobile'>
+    <Link to={link} className='btn-mobile'>
       <button
         className={`btn ${checkButtonStyle} ${checkButtonSize}`}
         onClick={onClick}

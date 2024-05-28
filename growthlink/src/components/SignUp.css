@@ -1,0 +1,53 @@
+body {
+    background-color: beige;
+}
+.Container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.inputForm {
+    width: 250px;
+    height: 300px;
+    margin-top: 10%;
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.inputForm h1 {
+
+    margin-bottom: 15%;
+}
+
+.inputForm input {
+    width: 95%;
+    height: 35px;
+    margin-bottom: 5%;
+    border-radius: 4px;
+    font-size: 1rem;
+    border: 1px solid black;
+}
+
+.inputForm button {
+    width: 100%;
+    height: 35px;
+    border: 4px;
+    color: black;
+    border: none;
+    font-size: 1.2rem;
+    background-color: #A2CE81;
+    border-radius: 8px;
+
+}
+
+.inputForm a {
+    color: #3C815D;
+    font-size: 1.2rem;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: 600;
+}
+
+.inputForm a:hover {
+    color: black;
+}

@@ -11,7 +11,7 @@ const HeroSection = () => {
       
       <div className='hero-btns'>
         <Button className="btns" buttonStyle='btn--outline'
-        buttonSize='btn--large'>
+        buttonSize='btn--large' link='/signUp'>
             SIGN UP NOW!
         </Button>
         
