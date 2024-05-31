@@ -1,5 +1,5 @@
 .cards {
-    padding: 4rem;
+    /* padding: ; */
     background: white;
 }
 
@@ -8,3 +8,45 @@ h1 {
     font-size: xx-large;
     text-align: center;
 }
+
+.container {
+    padding: 10%;
+    gap: 5%
+  }
+  
+  .postings {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5%;
+    justify-content: center;
+    font-family: 'Times New Roman', Times, serif;
+    margin: auto;
+    width: 90%;
+  }
+  
+  .posting {
+    background-color: white;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 250px;
+    text-align: center;
+  }
+  
+  .posting h3 {
+    font-size: 22px;
+    margin: 10px 0;
+  }
+  
+  .posting p {
+    font-size: 16px;
+    margin: 10px 0;
+    text-align: left;
+  }
+
+  .postings button {
+    border: none;
+    padding: 3%;
+    cursor: pointer;
+    background-color: DarkSeaGreen;
+  }
