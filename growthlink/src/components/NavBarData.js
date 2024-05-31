@@ -6,7 +6,7 @@ import * as PiIcons from 'react-icons/pi'
 export const NavBarData = [
     {
         title: 'Home',
-        path: '/',
+        path: '/home',
         icon: <AiIcons.AiFillHome/>,
         cName: 'nav-text'
     },
