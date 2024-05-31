@@ -1,6 +1,6 @@
 import React from 'react'
 import './Events.css'
-import { Button } from '../components/Button'
+
 const Events = () => {
   return (
     <>
