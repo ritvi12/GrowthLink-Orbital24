@@ -28,7 +28,7 @@ const NavBar = () => {
         </div>
         <div className='Name'>GROWTHLINK</div>
         {isLoggedIn ? <div className='User'> Hey {user.name}!</div>
-        : <></> }
+        : <div className='User'> Welcome!</div> }
         
       </div>
       <nav className= {sidebar ? 'nav-menu active' : 'nav-menu'}>
