@@ -26,7 +26,7 @@ const LogIn = () => {
   return (
     <div className='Container'>
       <div className='inputForm'>
-        <h1>SignIn</h1>
+        <h1>Log In</h1>
         <form action='' onSubmit={handleSubmit}>
             <input type="email" placeholder='Enter Email' required ref={emailRef}/>
             <input type="password" placeholder="Enter Password" required ref={passwordRef}/>
