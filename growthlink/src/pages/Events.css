@@ -1,70 +1,33 @@
-.cards {
-    /* padding: ; */
-    background: white;
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 50px; 
+  justify-content: space-around; 
+  padding: 16px;
+  max-width: 900px; 
+  margin: 0 auto; 
 }
 
-h1 {
-    font-family: 'Times New Roman', Times, serif;
-    font-size: xx-large;
-    text-align: center;
+.grid-item {
+  background-color: #f1f1f1;
+  padding: 20px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 8px;
 }
 
-.container {
-    padding: 5%;
-    gap: 5%
-  }
-  
-  .flex-container {
-    display: flex;
-    flex-flow: row wrap;
-    align-items: flex-start;
-    align-content: flex-start;
-    justify-content: space-around;
-    font-family: 'Times New Roman', Times, serif;
-    margin: auto;
-    width: 90%;
-  }
-  
-  .posting {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    background-color: white;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    width: 240px;
-    height: 260px;
-    text-align: center;
-  }
-  
-  .posting h3 {
-    font-size: 22px;
-    margin: 5px 0;
-  }
-  
-  .posting p {
-    font-size: 16px;
-    margin: 10px 0;
-    text-align: left;
-  }
+.heading {
+  padding-top: 5%;
+  padding-bottom: 2%;
+  font-family: 'Times New Roman', Times, serif;
+}
 
-  .content {
-    height: 80%;
-  }
-
-  .flex-container button {
-    border: 1px;
-    padding: 3%;
-    cursor: pointer;
-    background-color: DarkSeaGreen;
-    margin: 5px;
-    transition: all 0.2s ease-out;
-    cursor: pointer;
-    border-radius: 2px;
-  }
-
-  .flex-container button:hover {
-    background-color: #ADD899;
-    color: white;
-  }
+.buttons {
+   margin-top: 20px;
+   display: flex;
+   flex-direction: row;
+   justify-content: space-around;
+   text-align: center;
+   gap: 20px;
+}

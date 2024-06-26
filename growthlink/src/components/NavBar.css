@@ -2,7 +2,6 @@
     background-color: white;
     height: 80px;
     display: flex;
-    justify-content: start;
     align-items: center;
 }
 .Name {
@@ -10,6 +9,14 @@
     font-size: xx-large;
     font-family: 'Times New Roman', Times, serif;
 }
+.User {
+    padding: 8px 16px 8px 20px;
+    font-size: xx-large;
+    font-family: 'Times New Roman', Times, serif;
+    margin-left: auto;
+    margin-right: 24px;
+}
+
 .menu-bars {
     margin-left: 2rem;
     font-size: 2rem;

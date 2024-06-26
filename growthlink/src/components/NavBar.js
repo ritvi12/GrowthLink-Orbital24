@@ -12,7 +12,7 @@ import { useAuthValue } from '../AuthContext'
 const NavBar = () => {
     const [sidebar, setSideBar] = useState(false)
 
-    const {isLoggedIn, signOut} = useAuthValue();
+    const {isLoggedIn, signOut, user} = useAuthValue();
 
     const showSideBar = () => setSideBar(!sidebar)
 
@@ -27,6 +27,9 @@ const NavBar = () => {
             <FaIcons.FaBars onClick={showSideBar} />
         </div>
         <div className='Name'>GROWTHLINK</div>
+        {isLoggedIn ? <div className='User'> Hey {user.name}!</div>
+        : <></> }
+        
       </div>
       <nav className= {sidebar ? 'nav-menu active' : 'nav-menu'}>
         <ul className='nav-menu-items' onClick={showSideBar}>
