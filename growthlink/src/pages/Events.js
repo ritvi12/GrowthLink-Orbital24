@@ -1,66 +1,72 @@
-import React from 'react'
-import './Events.css'
+import React, { useState, useEffect } from 'react';
+import { db } from '../firebase';
+import { collection, getDocs } from 'firebase/firestore';
+import './Events.css';
+import { Button } from '../components/Button';
+import { useEventsContext } from '../EventsContext';
 
 const Events = () => {
-  return (
-    <>
-    <div className='cards'>
-      <h1>Check out these Recruitment Opportunities!</h1>
-    </div>
-    <div className="container" id="postings">
-      <div className="flex-container">
-        <div className = "posting">
-        <div className='content'>
-          <h3>FOW OGL</h3>
-          <p>Application period: 06.06.2024 - 16.06.2024</p>
-          <p>Freshmen Orientation Week (FOW) is an orientation camp under SOC. </p>
-          <p>Contact: @abcdef (Telegram)</p>
-          </div>
-          <div className = "buttons">
-            <button>Add to calendar</button>
-            <button>Sign up</button>
-          </div>
-        </div>
-        <div className = "posting">
-          <div className='content'>
-          <h3>NUSSU Life Cell</h3>
-          <p>Application period: 01.07.2024 - 10.07.2024</p>
-          <p>NUSSU Life Cell is... </p>
-          <p>Contact: @higjkl (Telegram)</p>
-          </div>
-          <div className = "buttons">
-            <button>Add to calendar</button>
-            <button>Sign up</button>
-          </div>
-        </div>
-        <div className = "posting">
-        <div className='content'>
-          <h3>Central Library student assistant</h3>
-          <p>Application period: 18.08.2024 - 25.08.2024</p>
-          <p>Central Library is recruiting students for... </p>
-          <p>Contact: @mnskdp (Telegram)</p>
-          </div>
-          <div className = "buttons">
-            <button>Add to calendar</button>
-            <button>Sign up</button>
-          </div>
-        </div>
-        <div className = "posting">
-        <div className='content'>
-          <h3>SOC Computing Club</h3>
-          <p>Application period: 18.08.2024 - 25.08.2024</p>
-          <p>SOC Computing Club is... </p>
-          <p>Contact: @sadjasio (Telegram)</p>
-          </div>
-          <div className = "buttons">
-            <button>Add to calendar</button>
-            <button>Sign up</button>
-          </div>
-        </div>
-      </div>  
-      </div>  
-    </>
-  )
-}
 
-export default Events
+  const [events, setEvents] = useState([]);
+  
+
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, 'Events'));
+        const eventsData = querySnapshot.docs.map(doc => doc.data());
+        setEvents(eventsData);
+      } catch (error) {
+        console.error('Error fetching events: ', error);
+      }
+    };
+
+    fetchData();
+  }, []); 
+
+  return (
+    <div>
+      
+      <center>
+        <h2 className='heading'>CHECK OUT THESE OPPORTUNITIES</h2>
+      </center>
+      <div className="grid-container">
+        {events.map((event, index) => (
+          <div key={index} className="grid-item">
+            <Frame
+              name={event.Name}
+              date={event.ApplicationPeriod}
+              description={event.Description}
+              contact={event.Contact}
+              Organisation={event.Organisation}
+              link={event.signUpLink}
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const Frame = (props) => {
+  const { name, description, Organisation, contact, date} = props;
+  const {addToDashBoard} = useEventsContext();
+  return (
+    <div>
+      <h3>{name}</h3>
+      
+      <p><strong>Description:</strong> {description}</p>
+      <p><strong>Organisation:</strong> {Organisation}</p>
+      <p><strong> Telegram Contact:</strong> {contact}</p>
+      <p><strong>Application Period:</strong> {date}</p>
+      <div className='buttons'>
+     
+      <Button buttonSize='btn--small' buttonStyle='btn--primary' onClick={() => addToDashBoard(props) }>ADD TO DASHBOARD</Button>
+      </div>
+      
+    </div>
+  );
+};
+
+export default Events;

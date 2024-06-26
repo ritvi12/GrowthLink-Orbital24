@@ -8,6 +8,7 @@ import LogIn from './components/LogIn';
 import SignUp from './components/SignUp';
 import LandingPage from './pages/LandingPage';
 import { AuthContext } from './AuthContext';
+import { EventsContext } from './EventsContext';
 
 function App() {
 
@@ -27,8 +28,11 @@ function App() {
   ])
   return (
     <>
+   
     <AuthContext>
-      <RouterProvider router={router}/>
+      <EventsContext>
+        <RouterProvider router={router}/>
+      </EventsContext>
     </AuthContext>
     </>
   );
