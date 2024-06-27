@@ -12,9 +12,25 @@
 .grid-item {
   background-color: #f1f1f1;
   padding: 20px;
-  text-align: center;
   border: 1px solid #ccc;
   border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  justify-content: space-between;
+}
+
+.grid-item:hover{
+  background-color: darkseagreen;
+  color: white;
+}
+.grid-item:hover .buttons Button {
+  background-color: white;
+  color: #648464;
+}
+
+.grid-item:hover .title {
+  color: white;
 }
 
 .heading {
@@ -23,8 +39,16 @@
   font-family: 'Times New Roman', Times, serif;
 }
 
+
+.title {
+  text-align: center;
+  color: #648464;
+  margin-bottom: 5%;
+  font-size: large;
+}
+
 .buttons {
-   margin-top: 20px;
+   margin-top: 5%;
    display: flex;
    flex-direction: row;
    justify-content: space-around;

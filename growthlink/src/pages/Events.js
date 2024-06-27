@@ -53,13 +53,16 @@ const Frame = (props) => {
   const { name, description, Organisation, contact, date} = props;
   const {addToDashBoard} = useEventsContext();
   return (
-    <div>
+    <div className='posting'>
+      <div className='title'>
       <h3>{name}</h3>
-      
-      <p><strong>Description:</strong> {description}</p>
-      <p><strong>Organisation:</strong> {Organisation}</p>
-      <p><strong> Telegram Contact:</strong> {contact}</p>
-      <p><strong>Application Period:</strong> {date}</p>
+      </div>
+      <div className='content'>
+        <p><strong>Description:</strong> {description}</p>
+        <p><strong>Organisation:</strong> {Organisation}</p>
+        <p><strong> Telegram Contact:</strong> {contact}</p>
+        <p><strong>Application Period:</strong> {date}</p>
+      </div>
       <div className='buttons'>
      
       <Button buttonSize='btn--small' buttonStyle='btn--primary' onClick={() => addToDashBoard(props) }>ADD TO DASHBOARD</Button>
