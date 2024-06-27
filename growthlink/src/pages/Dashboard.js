@@ -1,14 +1,12 @@
 import React from 'react';
 import { useEventsContext } from '../EventsContext';
 import { useAuthValue } from '../AuthContext';
-import { useNavigate } from 'react-router-dom';
 import { Button } from '../components/Button';
 import './Events.css';
 
 const Dashboard = () => {
-  const { dashboard } = useEventsContext();
+  const { dashboard, bookmarkedEvents } = useEventsContext();
   const { user } = useAuthValue();
-  const navigate = useNavigate();
 
   return (
     <div>
@@ -21,6 +19,23 @@ const Dashboard = () => {
           <h1>Your Events!</h1>
         ) : (
           dashboard.map((event, index) => (
+            <div key={index} className="grid-item">
+            <DashBoardItem 
+              event={event} 
+              key={index}
+            />
+            </div>
+          ))
+        )}
+      </div>
+      <center>
+        <h1 className='heading'>Bookmarked Events!</h1>
+      </center>
+      <div className='grid-container'>
+        {bookmarkedEvents.length === 0 ? (
+          <></>
+        ) : (
+          bookmarkedEvents.map((event, index) => (
             <div key={index} className="grid-item">
             <DashBoardItem 
               event={event} 

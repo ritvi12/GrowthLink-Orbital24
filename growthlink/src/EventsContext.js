@@ -1,4 +1,4 @@
-import {createContext, useContext, useEffect, useState} from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { useAuthValue } from './AuthContext';
 import { arrayRemove, arrayUnion, onSnapshot, updateDoc, doc } from 'firebase/firestore';
@@ -11,97 +11,93 @@ export function useEventsContext() {
     return value;
 }
 
-
-export function EventsContext({children}) {
-    
-    const {isLoggedIn, user, setUser, setLoggedIn} = useAuthValue();
-    const[dashboard, setMyDashboard] = useState([]);
-    const[bookmarkedEvents, setBookmarkedEvents] = useState([]);
+export function EventsContext({ children }) {
+    const { isLoggedIn, user, setUser, setLoggedIn } = useAuthValue();
+    const [dashboard, setMyDashboard] = useState([]);
+    const [bookmarkedEvents, setBookmarkedEvents] = useState([]);
 
     useEffect(() => {
         const token = window.localStorage.getItem("token");
         if (token) {
             const index = window.localStorage.getItem("index");
             const user = JSON.parse(index);
-            setLoggedIn(token)
-            setUser(user)
+            setLoggedIn(token);
+            setUser(user);
         }
-    },[])
+    }, []);
 
     useEffect(() => {
         if (isLoggedIn) {
             const unsub = onSnapshot(doc(db, "GrowthLinkUsers", user.id), (doc) => {
                 setMyDashboard(doc.data().dashboard);
-                setBookmarkedEvents(doc.data().bookmarks);
+                setBookmarkedEvents(doc.data().bookmarkedEvents || []);
             });
 
+            return () => unsub(); // Unsubscribe from the snapshot listener when the component unmounts
         }
-    }, [user])
+    }, [user, isLoggedIn]);
 
     async function addToDashBoard(event) {
         if (!isLoggedIn) {
-            toast.error("Please Log In to add to dashboard!")
+            toast.error("Please Log In to add to dashboard!");
             return;
         }
 
         const index = dashboard.findIndex((item) => item.name === event.name);
         if (index !== -1) {
-            toast.success("Event already added in the dashboard!")
             return;
         }
+
         const userRef = doc(db, "GrowthLinkUsers", user.id);
-        await updateDoc(userRef,  {
-            dashboard :  arrayUnion({...event})
+        await updateDoc(userRef, {
+            dashboard: arrayUnion({ ...event })
         });
         toast.success("Added to Dashboard");
     }
 
     async function removeFromDashBoard(event) {
         const userRef = doc(db, "GrowthLinkUsers", user.id);
-        await updateDoc(userRef,  {
-            dashboard :  arrayRemove({...event})
+        await updateDoc(userRef, {
+            dashboard: arrayRemove({ ...event })
         });
-    }
-
-    function getDate() {
-        const date = new Date();
-        let day = date.getDate();
-        let month = date.getMonth();
-        let year = date. getFullYear();
-        return (`${year}-${month}-${day}`)
     }
 
     async function bookmarkEvent(event) {
         if (!isLoggedIn) {
-            toast.error("Please log in to bookmark events!");
+            toast.error("Please Log In to bookmark event!");
             return;
         }
+
+        const isInDashboard = dashboard.findIndex((item) => item.name === event.name) !== -1;
+        if (isInDashboard) {
+            toast.error("Event is already in your dashboard!");
+            return;
+        }
+
         const index = bookmarkedEvents.findIndex((item) => item.name === event.name);
         if (index !== -1) {
-            const updatedBookmarks = bookmarkedEvents.filter((item) => item.name !== event.name);
-            setBookmarkedEvents(updatedBookmarks);
-            updateBookmarkedEvents(updatedBookmarks);
-            toast.success("Event removed from bookmarks!");
+            await removeBookmark(event);
             return;
         }
-        const updatedBookmarks = [...bookmarkedEvents, { ...event }];
-        setBookmarkedEvents(updatedBookmarks);
-        updateBookmarkedEvents(updatedBookmarks);
-        toast.success("Event bookmarked!");
 
+        const userRef = doc(db, "GrowthLinkUsers", user.id);
+        await updateDoc(userRef, {
+            bookmarkedEvents: arrayUnion({ ...event })
+        });
+        toast.success("Event bookmarked");
     }
 
-    async function updateBookmarkedEvents(bookmark) {
-        const userRef = doc(db, 'GrowthLinkUsers', user.id);
+    async function removeBookmark(event) {
+        const userRef = doc(db, "GrowthLinkUsers", user.id);
         await updateDoc(userRef, {
-            bookmarks: bookmark
+            bookmarkedEvents: arrayRemove({ ...event })
         });
+        toast.success("Bookmark removed");
     }
 
     return (
-        <EventContext.Provider value={{ addToDashBoard, dashboard, removeFromDashBoard, bookmarkedEvents, bookmarkEvent}}>
+        <EventContext.Provider value={{ addToDashBoard, dashboard, removeFromDashBoard, bookmarkEvent, bookmarkedEvents }}>
             {children}
         </EventContext.Provider>
-    )
+    );
 }
-
