@@ -34,7 +34,7 @@
 
 .posting {
   position: relative; /* Make this element the reference point for absolute positioning */
-  padding: 20px;
+  padding: 16px;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
@@ -70,7 +70,7 @@
   top: 0;
   right: 0;
   cursor: pointer;
-  font-size: 30px; /* Adjust icon size as needed */
+  font-size: 25px; /* Adjust icon size as needed */
   transition: color 0.3s ease;
 }
 .bookmark-icon.bookmarked i{
