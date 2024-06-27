@@ -33,7 +33,7 @@ export function EventsContext({ children }) {
                 setBookmarkedEvents(doc.data().bookmarkedEvents || []);
             });
 
-            return () => unsub(); // Unsubscribe from the snapshot listener when the component unmounts
+            return () => unsub(); 
         }
     }, [user, isLoggedIn]);
 

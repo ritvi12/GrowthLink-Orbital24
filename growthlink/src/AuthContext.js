@@ -15,7 +15,7 @@ export function useAuthValue() {
 export function AuthContext({children}) {
     const [isLoggedIn, setLoggedIn] = useState(false)
     
-    const [user, setUser] = useState(null) // [userLoggedIn, setUserLoggedIn]
+    const [user, setUser] = useState(null) 
 
     const [userList, setUserList] = useState([])
 
