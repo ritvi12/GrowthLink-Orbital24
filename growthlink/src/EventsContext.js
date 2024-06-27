@@ -16,6 +16,7 @@ export function EventsContext({children}) {
     
     const {isLoggedIn, user, setUser, setLoggedIn} = useAuthValue();
     const[dashboard, setMyDashboard] = useState([]);
+    const[bookmarkedEvents, setBookmarkedEvents] = useState([]);
 
     useEffect(() => {
         const token = window.localStorage.getItem("token");
@@ -31,6 +32,7 @@ export function EventsContext({children}) {
         if (isLoggedIn) {
             const unsub = onSnapshot(doc(db, "GrowthLinkUsers", user.id), (doc) => {
                 setMyDashboard(doc.data().dashboard);
+                setBookmarkedEvents(doc.data().bookmarks);
             });
 
         }
@@ -68,8 +70,36 @@ export function EventsContext({children}) {
         let year = date. getFullYear();
         return (`${year}-${month}-${day}`)
     }
+
+    async function bookmarkEvent(event) {
+        if (!isLoggedIn) {
+            toast.error("Please log in to bookmark events!");
+            return;
+        }
+        const index = bookmarkedEvents.findIndex((item) => item.name === event.name);
+        if (index !== -1) {
+            const updatedBookmarks = bookmarkedEvents.filter((item) => item.name !== event.name);
+            setBookmarkedEvents(updatedBookmarks);
+            updateBookmarkedEvents(updatedBookmarks);
+            toast.success("Event removed from bookmarks!");
+            return;
+        }
+        const updatedBookmarks = [...bookmarkedEvents, { ...event }];
+        setBookmarkedEvents(updatedBookmarks);
+        updateBookmarkedEvents(updatedBookmarks);
+        toast.success("Event bookmarked!");
+
+    }
+
+    async function updateBookmarkedEvents(bookmark) {
+        const userRef = doc(db, 'GrowthLinkUsers', user.id);
+        await updateDoc(userRef, {
+            bookmarks: bookmark
+        });
+    }
+
     return (
-        <EventContext.Provider value={{ addToDashBoard, dashboard, removeFromDashBoard}}>
+        <EventContext.Provider value={{ addToDashBoard, dashboard, removeFromDashBoard, bookmarkedEvents, bookmarkEvent}}>
             {children}
         </EventContext.Provider>
     )

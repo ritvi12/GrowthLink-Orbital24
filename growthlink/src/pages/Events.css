@@ -32,6 +32,16 @@
   color: white;
 }
 
+.posting {
+  position: relative; /* Make this element the reference point for absolute positioning */
+  padding: 20px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
 .heading {
   padding-top: 5%;
   padding-bottom: 2%;
@@ -53,5 +63,52 @@
    justify-content: space-around;
    text-align: center;
    gap: 20px;
+}
+
+.bookmark-icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+  font-size: 30px; /* Adjust icon size as needed */
+  transition: color 0.3s ease;
+}
+.bookmark-icon.bookmarked i{
+  color: transparent; /* Color when bookmarked */
+  background-color: darkseagreen;
+}
+
+.bookmark-icon:not(.bookmarked) i{
+  color: transparent; /* Default color */
+  border-color: darkseagreen;
+}
+
+.bookmark-icon:hover i{
+  color: white; /* Color on hover */
+}
+.filter-container {
+  display: flex;
+  justify-content: start;
+  margin-left: 20px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.filter-button {
+  margin: 5px;
+  padding: 10px 20px;
+  border: 2px solid #8fbc8f;
+  background-color: transparent;
+  cursor: pointer;
+  border-radius: 10px;
+  font-size: 16px;
+}
+
+.filter-button:hover {
+  background-color: #FDFABA;
+}
+
+.filter-button.active {
+  background-color: darkseagreen;
 }
 

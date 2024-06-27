@@ -47,7 +47,7 @@ export function AuthContext({children}) {
             email: data.email,
             password: data.password,
             dashboard: [],
-            events: []
+            bookmarks: []
        });
        toast.success("Signed Up Successfully! Log In Now!");
     }
