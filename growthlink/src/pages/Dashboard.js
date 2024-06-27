@@ -38,12 +38,14 @@ const DashBoardItem = (props) => {
   const { name, description, Organisation, contact, date } = props.event;
 
   return (
-    <div>
-      <h3>{name}</h3>
+    <div className='posting'>
+      <h3 className='title'>{name}</h3>
+      <div className='content'>
       <p><strong>Description:</strong> {description}</p>
       <p><strong>Organisation:</strong> {Organisation}</p>
       <p><strong>Telegram Contact:</strong> {contact}</p>
       <p><strong>Application Period:</strong> {date}</p>
+      </div>
       <div className='buttons'>
         <Button buttonSize='btn--small' buttonStyle='btn--primary'>ADD TO CALENDAR</Button>
       </div>

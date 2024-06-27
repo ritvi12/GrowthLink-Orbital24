@@ -29,7 +29,7 @@ const Events = () => {
     <div>
       
       <center>
-        <h2 className='heading'>CHECK OUT THESE OPPORTUNITIES</h2>
+        <h2 className='heading'>CHECK OUT THESE OPPORTUNITIES!</h2>
       </center>
       <div className="grid-container">
         {events.map((event, index) => (
