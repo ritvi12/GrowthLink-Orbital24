@@ -4,13 +4,12 @@ import { collection, getDocs } from 'firebase/firestore';
 import './Events.css';
 import { Button } from '../components/Button';
 import { useEventsContext } from '../EventsContext';
+import { FaBookmark, FaRegBookmark } from 'react-icons/fa';
 
 const Events = () => {
-
   const [events, setEvents] = useState([]);
-  
+  const [selectedOrganizations, setSelectedOrganizations] = useState([]);
 
-  
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -23,16 +22,47 @@ const Events = () => {
     };
 
     fetchData();
-  }, []); 
+  }, []);
+
+  const uniqueOrganizations = Array.from(new Set(events.map(event => event.Organisation.trim())));
+  const organizations = [...selectedOrganizations, 'All', ...uniqueOrganizations.filter(org => !selectedOrganizations.includes(org) && org !== 'All')];
+
+  const handleFilterChange = (org) => {
+    if (org === 'All') {
+      setSelectedOrganizations([]);
+    } else {
+      setSelectedOrganizations(prevSelected =>
+        prevSelected.includes(org)
+          ? prevSelected.filter(selectedOrg => selectedOrg !== org)
+          : [org, ...prevSelected]
+      );
+    }
+  };
+
+  const filteredEvents = selectedOrganizations.length === 0
+    ? events
+    : events.filter(event => selectedOrganizations.includes(event.Organisation.trim()));
 
   return (
     <div>
-      
       <center>
         <h2 className='heading'>CHECK OUT THESE OPPORTUNITIES!</h2>
       </center>
+      
+      <div className='filter-container'>
+        {organizations.map((org, index) => (
+          <button
+            key={index}
+            className={`filter-button ${selectedOrganizations.includes(org) ? 'active' : ''}`}
+            onClick={() => handleFilterChange(org)}
+          >
+            {org}
+          </button>
+        ))}
+      </div>
+
       <div className="grid-container">
-        {events.map((event, index) => (
+        {filteredEvents.map((event, index) => (
           <div key={index} className="grid-item">
             <Frame
               name={event.Name}
@@ -50,24 +80,28 @@ const Events = () => {
 };
 
 const Frame = (props) => {
-  const { name, description, Organisation, contact, date} = props;
-  const {addToDashBoard} = useEventsContext();
+  const { name, description, Organisation, contact, date } = props;
+  const { addToDashBoard, bookmarkEvent, bookmarkedEvents } = useEventsContext();
+  const isBookmarked = bookmarkedEvents.some(bookmark => bookmark.name === name)
   return (
     <div className='posting'>
       <div className='title'>
-      <h3>{name}</h3>
+        <h3>{name}</h3>
+        {isBookmarked 
+          ? <FaBookmark className={'bookmark-icon bookmarked'} onClick={() => bookmarkEvent(props)}/> 
+          : <FaRegBookmark className={`bookmark-icon`} onClick={() => bookmarkEvent(props)}/>
+          }
+        
       </div>
       <div className='content'>
         <p><strong>Description:</strong> {description}</p>
         <p><strong>Organisation:</strong> {Organisation}</p>
-        <p><strong> Telegram Contact:</strong> {contact}</p>
+        <p><strong>Telegram Contact:</strong> {contact}</p>
         <p><strong>Application Period:</strong> {date}</p>
       </div>
       <div className='buttons'>
-     
-      <Button buttonSize='btn--small' buttonStyle='btn--primary' onClick={() => addToDashBoard(props) }>ADD TO DASHBOARD</Button>
+        <Button buttonSize='btn--small' buttonStyle='btn--primary' onClick={() => addToDashBoard(props)}>ADD TO DASHBOARD</Button>
       </div>
-      
     </div>
   );
 };
