@@ -31,7 +31,7 @@ function App() {
   return (
     <AuthContext>
       <EventsContext>
-        <RouterProvider router={router}/>
+        <RouterProvider router={router} />
       </EventsContext>
     </AuthContext>
   );
