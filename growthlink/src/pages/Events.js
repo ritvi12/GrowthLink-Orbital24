@@ -5,6 +5,7 @@ import './Events.css';
 import { Button } from '../components/Button';
 import { useEventsContext } from '../EventsContext';
 import { FaBookmark, FaRegBookmark } from 'react-icons/fa';
+import Footer from '../components/Footer';
 
 const Events = () => {
   const [events, setEvents] = useState([]);
@@ -75,6 +76,7 @@ const Events = () => {
           </div>
         ))}
       </div>
+      <Footer />
     </div>
   );
 };
