@@ -3,12 +3,12 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Times New Roman', Times, serif;
-    font-size: 15px; 
-    background-color: #A2CE81;
 }
 
 footer{
     display: flex;
     flex-wrap: wrap;
     margin-top: auto;
+    font-size: 15px;
+    background-color: green;
 }
