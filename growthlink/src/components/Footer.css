@@ -10,6 +10,15 @@ footer{
     flex-wrap: wrap;
     margin-top: auto;
     font-size: 15px;
-    background-color: green;
+    background-color: darkseagreen;
     text-align: center; 
+    height: 100px;
+    align-content: center;
+}
+
+footer-col{
+    margin-top: 20%;
+    align-content: center;
+    height: 50px;
+    background-color: blue;
 }
