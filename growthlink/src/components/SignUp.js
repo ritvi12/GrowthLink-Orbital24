@@ -37,7 +37,7 @@ const SignUp = () => {
             <button>Sign Up!</button>
         </form>
         <br/>
-        <span> Already have an Account?.. &nbsp;</span>
+        <span> Already have an Account? &nbsp;</span>
         <NavLink to ='/logIn'>Log In</NavLink>
       </div>
     </div>
