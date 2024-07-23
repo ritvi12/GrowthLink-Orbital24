@@ -1,5 +1,5 @@
 import React from 'react';
-import { useEventsContext } from '../EventsContext';
+import { useEventsContext } from '../assets/EventsContext';
 import { useAuthValue } from '../AuthContext';
 import { Button } from '../components/Button';
 import './Events.css';

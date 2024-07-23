@@ -8,9 +8,9 @@ import LogIn from './components/LogIn';
 import SignUp from './components/SignUp';
 import LandingPage from './pages/LandingPage';
 import { AuthContext } from './AuthContext';
-import { EventsContext } from './EventsContext';
-import ProtectedRoute from './ProtectedRoute';
-import LandingRedirect from './LandingRedirect';
+import { EventsContext } from './assets/EventsContext';
+import ProtectedRoute from './assets/ProtectedRoute';
+import LandingRedirect from './assets/LandingRedirect';
 
 function App() {
   const router = createBrowserRouter([

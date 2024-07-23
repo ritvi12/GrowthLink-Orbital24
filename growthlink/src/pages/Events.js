@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { db } from '../firebase';
+import { db } from '../assets/firebase';
 import { collection, getDocs } from 'firebase/firestore';
 import './Events.css';
 import { Button } from '../components/Button';
-import { useEventsContext } from '../EventsContext';
+import { useEventsContext } from '../assets/EventsContext';
 import { FaBookmark, FaRegBookmark } from 'react-icons/fa';
 import Footer from '../components/Footer';
 
