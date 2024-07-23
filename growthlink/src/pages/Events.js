@@ -26,7 +26,7 @@ const Events = () => {
   }, []);
 
   const uniqueOrganizations = Array.from(new Set(events.map(event => event.Organisation.trim())));
-  const organizations = [...selectedOrganizations, 'All', ...uniqueOrganizations.filter(org => !selectedOrganizations.includes(org) && org !== 'All')];
+  const organizations = ['All', ...uniqueOrganizations];
 
   const handleFilterChange = (org) => {
     if (org === 'All') {

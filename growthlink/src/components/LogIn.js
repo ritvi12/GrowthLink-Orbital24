@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, NavLink } from 'react-router-dom';
 import { useAuthValue } from '../AuthContext';
 import './SignUp.css'
 
@@ -32,6 +32,9 @@ const LogIn = () => {
             <input type="password" placeholder="Enter Password" required ref={passwordRef}/>
             <button>Log In</button>
         </form>
+        <br/>
+        <span> Don't have an account? &nbsp;</span>
+        <NavLink to ='/signUp'>SignUp</NavLink>
       </div>
     </div>
   )

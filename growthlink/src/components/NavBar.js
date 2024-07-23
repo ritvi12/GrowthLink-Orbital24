@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import * as FaIcons from 'react-icons/fa'
 import * as AiIcons from 'react-icons/ai'
-import { Link, Outlet } from 'react-router-dom'
+import { Link, NavLink, Outlet } from 'react-router-dom'
 import { NavBarData } from './NavBarData'
 import './NavBar.css'
 import { IconContext } from 'react-icons'
@@ -26,10 +26,13 @@ const NavBar = () => {
         <div className='menu-bars'>
             <FaIcons.FaBars onClick={showSideBar} />
         </div>
-        <div className='Name'>GROWTHLINK</div>
+        <NavLink className='Name'>GROWTHLINK</NavLink>
         {isLoggedIn ? <div className='User'> Hey {user.name}!</div>
-        : <div className='User'> Welcome!</div> }
-        
+        :<div className='User'>
+           <NavLink to ='/logIn' className= 'navlink' activeClassName = 'active'>Log In</NavLink>
+           <Button buttonStyle='btn--outline' link="/signUp">Get Started</Button>
+        </div> }
+
       </div>
       <nav className= {sidebar ? 'nav-menu active' : 'nav-menu'}>
         <ul className='nav-menu-items' onClick={showSideBar}>
