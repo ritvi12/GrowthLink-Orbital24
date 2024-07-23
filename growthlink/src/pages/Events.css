@@ -10,7 +10,7 @@
 }
 
 .grid-item {
-  background-color: #f1f1f1;
+  background-color: rgb(255, 255, 255);
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -33,7 +33,7 @@
 }
 
 .posting {
-  position: relative; /* Make this element the reference point for absolute positioning */
+  position: relative; 
   padding: 16px;
   border-radius: 8px;
   display: flex;
@@ -98,7 +98,7 @@
   margin: 5px;
   padding: 10px 20px;
   border: 2px solid #8fbc8f;
-  background-color: transparent;
+  background-color: white;
   cursor: pointer;
   border-radius: 10px;
   font-size: 16px;

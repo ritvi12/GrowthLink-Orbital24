@@ -14,13 +14,17 @@
 }
 
 .hero-btns {
-    position: absolute;
-    margin-top: 380px;
+    justify-content: center;
+    position: relative;
+    margin-top: 300px;
     align-items: center;
+    height: 25%;
+    width: 100%;
+
 }
 
 .pagedescription p {
-    margin-top: 450px;
+    margin-top: auto;
     margin-left: 15%;
     margin-right: 15%;
     font-size: 20px;
