@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { useAuthValue } from '../AuthContext';
+import { useAuthValue } from '../assets/AuthContext';
 import './SignUp.css'
 import { NavLink } from 'react-router-dom';
 

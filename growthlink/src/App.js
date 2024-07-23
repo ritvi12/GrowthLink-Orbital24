@@ -7,7 +7,7 @@ import Calendar from './pages/Calendar';
 import LogIn from './components/LogIn';
 import SignUp from './components/SignUp';
 import LandingPage from './pages/LandingPage';
-import { AuthContext } from './AuthContext';
+import { AuthContext } from './assets/AuthContext';
 import { EventsContext } from './assets/EventsContext';
 import ProtectedRoute from './assets/ProtectedRoute';
 import LandingRedirect from './assets/LandingRedirect';

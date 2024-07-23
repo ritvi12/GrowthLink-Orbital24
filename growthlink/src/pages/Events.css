@@ -89,7 +89,7 @@
 .filter-container {
   display: flex;
   justify-content: start;
-  margin-left: 20px;
+  margin-left: 70px;
   margin-bottom: 20px;
   flex-wrap: wrap;
 }
@@ -109,7 +109,7 @@
 }
 
 .filter-button.active {
-  background-color: darkseagreen;
+  background-color: #FDFABA;
 }
 
 .Footer {

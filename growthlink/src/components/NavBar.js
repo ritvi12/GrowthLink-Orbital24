@@ -6,7 +6,7 @@ import { NavBarData } from './NavBarData'
 import './NavBar.css'
 import { IconContext } from 'react-icons'
 import { Button } from './Button'
-import { useAuthValue } from '../AuthContext'
+import { useAuthValue } from '../assets/AuthContext'
 
 
 const NavBar = () => {
