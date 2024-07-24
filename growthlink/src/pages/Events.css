@@ -115,7 +115,7 @@
   margin: 5px;
   padding: 10px 20px;
   border: 2px solid #8fbc8f;
-  background-color: white;
+  background-color: #8fbc8f;
   cursor: pointer;
   border-radius: 10px;
   font-size: 16px;
@@ -123,8 +123,10 @@
 
 .filter-button:hover {
   background-color: #FDFABA;
+  color: black;
 }
 
 .filter-button.active {
   background-color: #FDFABA;
+  color: black;
 }
