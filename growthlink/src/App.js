@@ -7,10 +7,12 @@ import Calendar from './pages/Calendar';
 import LogIn from './components/LogIn';
 import SignUp from './components/SignUp';
 import LandingPage from './pages/LandingPage';
-import { AuthContext } from './AuthContext';
-import { EventsContext } from './assets/EventsContext';
-import ProtectedRoute from './assets/ProtectedRoute';
-import LandingRedirect from './assets/LandingRedirect';
+import { AuthProvider } from './assets/AuthContext';
+import { EventsProvider } from './assets/EventsContext';
+import ProtectedRoute from './ProtectedRoute';
+import RoleProtectedRoute from './assets/RoleProtectedRoute';
+import LandingRedirect from './LandingRedirect';
+import AdminDashboard from './pages/AdminDashboard';
 
 function App() {
   const router = createBrowserRouter([
@@ -22,18 +24,19 @@ function App() {
         { path: '/logIn', element: <LogIn /> },
         { path: '/signUp', element: <SignUp /> },
         { path: '/home', element: <ProtectedRoute><Home /></ProtectedRoute> },
-        { path: '/dashboard', element: <ProtectedRoute><Dashboard /></ProtectedRoute> },
+        { path: '/dashboard', element: <ProtectedRoute ><Dashboard /></ProtectedRoute> },
         { path: '/calendar', element: <ProtectedRoute><Calendar /></ProtectedRoute> },
+        { path: '/adminDashboard', element: <RoleProtectedRoute requiredRole="admin"><AdminDashboard /></RoleProtectedRoute> }
       ],
     },
   ]);
 
   return (
-    <AuthContext>
-      <EventsContext>
+    <AuthProvider>
+      <EventsProvider>
         <RouterProvider router={router} />
-      </EventsContext>
-    </AuthContext>
+      </EventsProvider>
+    </AuthProvider>
   );
 }
 

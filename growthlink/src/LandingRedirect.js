@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuthValue } from './AuthContext';
+import { useAuthValue } from './assets/AuthContext';
 
 const LandingRedirect = ({ children }) => {
   const { isLoggedIn, signOut } = useAuthValue();

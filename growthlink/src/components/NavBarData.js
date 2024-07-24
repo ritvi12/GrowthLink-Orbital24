@@ -7,19 +7,40 @@ export const NavBarData = [
     {
         title: 'Home',
         path: '/home',
-        icon: <AiIcons.AiFillHome/>,
+        icon: <AiIcons.AiFillHome />,
         cName: 'nav-text'
     },
     {
         title: 'DashBoard',
         path: '/dashboard',
-        icon: <PiIcons.PiSquaresFourBold/>,
+        icon: <PiIcons.PiSquaresFourBold />,
         cName: 'nav-text'
     },
     {
         title: 'Calendar',
         path: '/calendar',
-        icon: <FaIcons.FaCalendar/>,
+        icon: <FaIcons.FaCalendar />,
         cName: 'nav-text'
     }
-]
+];
+
+export const adminNavBarData = [
+    {
+        title: 'Home',
+        path: '/home',
+        icon: <AiIcons.AiFillHome />,
+        cName: 'nav-text'
+    },
+    {
+        title: 'Admin Dashboard',
+        path: '/adminDashboard',
+        icon: <PiIcons.PiSquaresFourBold />,
+        cName: 'nav-text'
+    },
+    {
+        title: 'Calendar',
+        path: '/calendar',
+        icon: <FaIcons.FaCalendar />,
+        cName: 'nav-text'
+    }
+];

@@ -1,17 +1,17 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
-import { useAuthValue } from './AuthContext';
+import { toast } from 'react-toastify';
+import { useAuthValue } from './AuthContext'; // Ensure this path is correct
 import { arrayRemove, arrayUnion, onSnapshot, updateDoc, doc } from 'firebase/firestore';
-import { db } from "./firebase";
+import { db } from "../firebase";
 
 export const EventContext = createContext();
 
 export function useEventsContext() {
-    const value = useContext(EventContext)
+    const value = useContext(EventContext);
     return value;
 }
 
-export function EventsContext({ children }) {
+export function EventsProvider({ children }) {
     const { isLoggedIn, user, setUser, setLoggedIn } = useAuthValue();
     const [dashboard, setMyDashboard] = useState([]);
     const [bookmarkedEvents, setBookmarkedEvents] = useState([]);
@@ -33,7 +33,7 @@ export function EventsContext({ children }) {
                 setBookmarkedEvents(doc.data().bookmarkedEvents || []);
             });
 
-            return () => unsub(); 
+            return () => unsub();
         }
     }, [user, isLoggedIn]);
 
