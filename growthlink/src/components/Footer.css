@@ -8,13 +8,14 @@
 footer{
     display: flex;
     flex-wrap: wrap;
-    margin-top: 100px;
+    margin-top: 5%;
     font-size: 15px;
     background-color: darkseagreen;
     text-align: center; 
     height: 100px;
     align-content: center;
     color: white;
+    z-index: 98;
 }
 
 footer-col{
