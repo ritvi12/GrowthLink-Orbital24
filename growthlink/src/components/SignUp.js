@@ -19,7 +19,7 @@ const SignUp = () => {
             name: nameRef.current.value,
             email: emailRef.current.value,
             password: passwordRef.current.value,
-            role: tab // Pass the role as 'user' or 'admin'
+            role: tab 
         };
         createUser(data);
         navigate('/logIn');

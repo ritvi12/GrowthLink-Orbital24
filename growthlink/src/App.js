@@ -7,12 +7,15 @@ import Calendar from './pages/Calendar';
 import LogIn from './components/LogIn';
 import SignUp from './components/SignUp';
 import LandingPage from './pages/LandingPage';
+
 import { AuthProvider } from './assets/AuthContext';
 import { EventsProvider } from './assets/EventsContext';
 import ProtectedRoute from './ProtectedRoute';
 import RoleProtectedRoute from './assets/RoleProtectedRoute';
 import LandingRedirect from './LandingRedirect';
 import AdminDashboard from './pages/AdminDashboard';
+
+
 
 function App() {
   const router = createBrowserRouter([

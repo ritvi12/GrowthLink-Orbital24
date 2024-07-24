@@ -3,6 +3,7 @@ import { useNavigate, NavLink } from 'react-router-dom';
 import { useAuthValue } from '../assets/AuthContext';
 import './SignUp.css'; 
 
+
 const LogIn = () => {
     const [activeTab, setActiveTab] = useState('user');
     const emailRef = useRef();

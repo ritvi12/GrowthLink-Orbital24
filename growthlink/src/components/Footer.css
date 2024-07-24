@@ -8,17 +8,24 @@
 footer{
     display: flex;
     flex-wrap: wrap;
-    margin-top: auto;
+    margin-top: 5%;
     font-size: 15px;
     background-color: darkseagreen;
     text-align: center; 
     height: 100px;
     align-content: center;
+    color: white;
+    z-index: 98;
 }
 
 footer-col{
-    margin-top: 20%;
+    margin-top: 100%;
     align-content: center;
     height: 50px;
     background-color: blue;
+    margin-left: 10px;
+}
+
+h4 {
+    margin-left: 20px;
 }

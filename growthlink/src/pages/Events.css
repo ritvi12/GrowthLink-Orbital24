@@ -10,7 +10,7 @@
 }
 
 .grid-item {
-  background-color: #f1f1f1;
+  background-color: rgb(255, 255, 255);
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -26,14 +26,23 @@
 }
 .grid-item:hover .buttons Button {
   border-color: black;
+  background-color: white;
 }
+
+.grid-item:hover .buttons Button:hover {
+  background-color: #FDFABA;
+}  
 
 .grid-item:hover .title {
   color: white;
 }
 
+.grid-item:hover .posting-org {
+  color: white;
+}
+
 .posting {
-  position: relative; /* Make this element the reference point for absolute positioning */
+  position: relative; 
   padding: 16px;
   border-radius: 8px;
   display: flex;
@@ -54,6 +63,14 @@
   color: #648464;
   margin-bottom: 5%;
   font-size: large;
+}
+
+.posting-org {
+  color: black;
+  font-size: 13px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  text-decoration: underline;
 }
 
 .buttons {
@@ -89,7 +106,7 @@
 .filter-container {
   display: flex;
   justify-content: start;
-  margin-left: 20px;
+  margin-left: 70px;
   margin-bottom: 20px;
   flex-wrap: wrap;
 }
@@ -98,7 +115,7 @@
   margin: 5px;
   padding: 10px 20px;
   border: 2px solid #8fbc8f;
-  background-color: transparent;
+  background-color: white;
   cursor: pointer;
   border-radius: 10px;
   font-size: 16px;
@@ -109,10 +126,5 @@
 }
 
 .filter-button.active {
-  background-color: darkseagreen;
+  background-color: #FDFABA;
 }
-
-.Footer {
-  background-color: #648464;
-}
-

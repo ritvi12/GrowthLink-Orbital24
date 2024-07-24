@@ -8,6 +8,7 @@ import { IconContext } from 'react-icons'
 import { Button } from './Button'
 import { useAuthValue } from '../assets/AuthContext';
 
+
 const NavBar = () => {
     const [sidebar, setSideBar] = useState(false);
     const { isLoggedIn, signOut, user } = useAuthValue();
@@ -19,23 +20,27 @@ const NavBar = () => {
         }
         return NavBarData;
     };
+  return (
+    <>
+   
+    <IconContext.Provider value={{color: 'black'}}>
+      <div className='navbar'>
+        <div className='menu-bars'>
+            <FaIcons.FaBars onClick={showSideBar} />
+        </div>
+        <NavLink className='Name'>GROWTHLINK</NavLink>
+        {isLoggedIn ? <div className='User'> Hey {user.name}!</div>
+        :<div className='User'>
+           <NavLink to ='/logIn' className= 'navlink' activeClassName = 'active'>Log In</NavLink>
+           <Button className = 'get-started-btn' buttonStyle='btn--outline' link="/signUp">Get Started</Button>
+        </div> }
 
-    return (
-        <>
-            <IconContext.Provider value={{ color: 'black' }}>
-                <div className='navbar'>
-                    <div className='menu-bars'>
-                        <FaIcons.FaBars onClick={showSideBar} />
-                    </div>
-                    <NavLink className='Name'>GROWTHLINK</NavLink>
-                    {isLoggedIn ? (
-                        <div className='User'> Hey {user.name}!</div>
-                    ) : (
-                        <div className='User'>
-                            <NavLink to='/logIn' className='navlink' activeClassName='active'>Log In</NavLink>
-                            <Button buttonStyle='btn--outline' link="/signUp">Get Started</Button>
-                        </div>
-                    )}
+      </div>
+      <nav className= {sidebar ? 'nav-menu active' : 'nav-menu'}>
+        <ul className='nav-menu-items' onClick={showSideBar}>
+            <li className='navbar-toggle'>
+                <div className='menu-bars'>
+                    <AiIcons.AiOutlineClose />
                 </div>
                 <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
                     <ul className='nav-menu-items' onClick={showSideBar}>
