@@ -6,6 +6,13 @@ const LandingPage = () => {
   return (
     <>
       <HeroSection/>
+      <div className='features'>
+      <h4>Features: </h4>
+      <div className='addToCalendar'>
+        <img src ='#'></img>
+        <p>Add to calendar</p>
+      </div>
+      </div>
       <Events/>
     </>
   )
