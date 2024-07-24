@@ -26,9 +26,18 @@
 }
 .grid-item:hover .buttons Button {
   border-color: black;
+  background-color: white;
 }
 
+.grid-item:hover .buttons Button:hover {
+  background-color: #FDFABA;
+}  
+
 .grid-item:hover .title {
+  color: white;
+}
+
+.grid-item:hover .posting-org {
   color: white;
 }
 
@@ -54,6 +63,14 @@
   color: #648464;
   margin-bottom: 5%;
   font-size: large;
+}
+
+.posting-org {
+  color: black;
+  font-size: 13px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  text-decoration: underline;
 }
 
 .buttons {

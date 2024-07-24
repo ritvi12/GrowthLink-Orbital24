@@ -30,7 +30,7 @@ const NavBar = () => {
         {isLoggedIn ? <div className='User'> Hey {user.name}!</div>
         :<div className='User'>
            <NavLink to ='/logIn' className= 'navlink' activeClassName = 'active'>Log In</NavLink>
-           <Button buttonStyle='btn--outline' link="/signUp">Get Started</Button>
+           <Button className = 'get-started-btn' buttonStyle='btn--outline' link="/signUp">Get Started</Button>
         </div> }
 
       </div>

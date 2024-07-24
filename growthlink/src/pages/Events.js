@@ -45,7 +45,7 @@ const Events = () => {
     : events.filter(event => selectedOrganizations.includes(event.Organisation.trim()));
 
   return (
-    <div>
+    <div className = 'main-content'>
       <center>
         <h2 className='heading'>CHECK OUT THESE OPPORTUNITIES!</h2>
       </center>
@@ -93,11 +93,11 @@ const Frame = (props) => {
           ? <FaBookmark className={'bookmark-icon bookmarked'} onClick={() => bookmarkEvent(props)}/> 
           : <FaRegBookmark className={`bookmark-icon`} onClick={() => bookmarkEvent(props)}/>
           }
+        <p className='posting-org'> <strong>From: {Organisation}</strong></p>
         
       </div>
       <div className='content'>
         <p><strong>Description:</strong> {description}</p>
-        <p><strong>Organisation:</strong> {Organisation}</p>
         <p><strong>Telegram Contact:</strong> {contact}</p>
         <p><strong>Application Period:</strong> {date}</p>
       </div>
