@@ -64,23 +64,33 @@
 
 .posts-list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
-    gap: 20px;
+    grid-template-columns: repeat(3, 1fr); /* 3 columns of equal width */
+    gap: 20px; /* Space between posts */
     padding: 0;
     list-style: none;
     margin: 0;
 }
 
 .post-item {
-    background-color: rgb(255, 255, 255);
-    padding: 20px;
-    border: 1px solid #ccc;
+    background-color: #fff;
+    padding: 15px; /* Adjust padding for content fit */
+    border: 1px solid #ddd;
     border-radius: 8px;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    justify-content: space-between;
-  }
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box; /* Ensure padding and border are included in width */
+}
+
+@media (max-width: 1200px) {
+    .posts-list {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns on medium screens */
+    }
+}
+
+@media (max-width: 800px) {
+    .posts-list {
+        grid-template-columns: 1fr; /* 1 column on small screens */
+    }
+}
 
 .post-item h3 {
     margin-top: 0;
