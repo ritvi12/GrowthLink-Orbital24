@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "growthlink/public",
+    "public": "growthlink/build",
     "ignore": [
       "firebase.json",
       "**/.*",
