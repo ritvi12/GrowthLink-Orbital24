@@ -76,7 +76,7 @@ const AdminDashboard = () => {
                         {posts.map((post) => (
                             <div key={post.id} className="post-item">
                                 <h3>{post.Name}</h3>
-                                <p><strong>Application Period:</strong> {post.ApplicationPeriod}</p>
+                                <p><strong>Application Deadline:</strong> {post.ApplicationPeriod}</p>
                                 <p><strong>Organisation:</strong> {post.Organisation}</p>
                                 <p><strong>Contact:</strong> {post.Contact}</p>
                                 <p><strong>Description:</strong> {post.Description}</p>
