@@ -1,7 +1,7 @@
 .features {
     margin-top: 3%;
-    text-align: center;
-    text-decoration: underline;
+    text-align: left;
+    margin-left: 5%;
 }
 
 .ind-features {
@@ -9,7 +9,14 @@
     display: flex;
 }
 
+
 .ind-features .addToCalendar,
 .ind-features .dashboard {
     flex: 1;
+}
+
+.ind-features p {
+    font-size: 16px;
+    margin-top: 20px;
+    flex-wrap: wrap;
 }
