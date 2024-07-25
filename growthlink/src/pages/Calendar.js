@@ -1,7 +1,7 @@
 import React from 'react'
 import Footer from '../components/Footer';
 import './Calendar.css';
-import Calendar from '@toast-ui/calendar';
+// import Calendar from '@toast-ui/calendar';
 import '@toast-ui/calendar/dist/toastui-calendar.min.css';
 
 /*const calendar = new Calendar('#calendar', {

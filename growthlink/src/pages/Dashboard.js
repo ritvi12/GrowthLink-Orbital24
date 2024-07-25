@@ -1,13 +1,13 @@
 import React from 'react';
 import { useEventsContext } from '../assets/EventsContext';
-import { useAuthValue } from '../assets/AuthContext';
+//import { useAuthValue } from '../assets/AuthContext';
 import { Button } from '../components/Button';
 import './Events.css';
 import Footer from '../components/Footer';
 
 const Dashboard = () => {
   const { dashboard, bookmarkedEvents } = useEventsContext();
-  const { user } = useAuthValue();
+  // const { user } = useAuthValue();
 
   return (
     <div>
