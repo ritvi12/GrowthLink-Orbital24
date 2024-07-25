@@ -25,10 +25,6 @@ jobs:
         run: npm ci
         working-directory: growthlink
 
-      - name: Fix lint issues
-        run: npm run lint -- --fix
-        working-directory: growthlink
-
       - name: Build project
         run: |
           npm run build
