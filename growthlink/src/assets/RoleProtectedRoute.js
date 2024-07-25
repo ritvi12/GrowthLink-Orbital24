@@ -1,14 +1,20 @@
-import React from 'react';
-import { useAuthValue } from './AuthContext'; 
+import { Navigate } from 'react-router-dom';
+import { useAuthValue } from './AuthContext';
 
-const RoleProtectedRoute = ({ children, requiredRole }) => {
-    const { user } = useAuthValue();
+const RoleProtectedRoute = ({ requiredRole, children }) => {
+    const { isLoggedIn, user } = useAuthValue();
 
-    if (user && user.role === requiredRole) {
-        return children;
-    } else {
-        return <div>Access Denied</div>; 
+    if (!isLoggedIn) {
+        // Redirect to landing page if not logged in
+        return <Navigate to="/" />;
     }
+
+    if (user?.role !== requiredRole) {
+        // Redirect to landing page if role does not match
+        return <Navigate to="/" />;
+    }
+
+    return children;
 };
 
 export default RoleProtectedRoute;

@@ -18,14 +18,15 @@ import AdminDashboard from './pages/AdminDashboard';
 
 
 function App() {
+  console.log("App Rendered");
   const router = createBrowserRouter([
     {
       path: '/',
       element: <NavBar />,
       children: [
-        { path: '/', element: <LandingRedirect><LandingPage /></LandingRedirect> },
-        { path: '/logIn', element: <LogIn /> },
-        { path: '/signUp', element: <SignUp /> },
+        { path: '/', element:<LandingRedirect><LandingPage /></LandingRedirect>  },
+        { path: '/logIn', element: <LandingRedirect><LogIn /></LandingRedirect>  },
+        { path: '/signUp', element: <LandingRedirect><SignUp /></LandingRedirect> },
         { path: '/home', element: <ProtectedRoute><Home /></ProtectedRoute> },
         { path: '/dashboard', element: <ProtectedRoute ><Dashboard /></ProtectedRoute> },
         { path: '/calendar', element: <ProtectedRoute><Calendar /></ProtectedRoute> },
@@ -44,3 +45,4 @@ function App() {
 }
 
 export default App;
+
