@@ -31,6 +31,13 @@
     transition: all 0.3s ease-out;
 }
 
+.btn--landingpage {
+    background-color: white;
+    color: black;
+    border: 1px solid var(--primary);
+    border-radius: 3px;
+}
+
 .btn--small {
     padding: 8px 10px;
     font-size: 15px;
@@ -41,17 +48,24 @@
     font-size: 20px;
 }
 
-.btn--large {
+.btn--large, 
+.btn--big {
     padding: 8px 26px;
     font-size: 26px;
 }
 
 .btn--small:hover,
-.btn--medium:hover, 
+.btn--medium:hover,
 .btn--large:hover {
     background-color: white;
     color: black;
     transition: all 0.3s ease-out;
     outline: none;
+}
 
+.btn--big:hover {
+    background-color: darkseagreen;
+    color: white;
+    border: 1px solid darkseagreen;
+    border-radius: 3px;
 }

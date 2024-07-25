@@ -15,24 +15,18 @@
 .hero-btns {
     justify-content: center;
     position: relative;
-    margin-top: 365px;
+    margin-top: 380px;
     align-items: center;
     height: 15%;
     width: 100%;
-
-}
-
-.hero-btns :hover {
-    background-color: #FDFABA;
-    color: black;
-    transition: all 0.3s ease-out;
+    cursor: pointer;
 }
 
 .pagedescription {
     background: url('../../public/images/GrowthLink.png') center center/cover no-repeat;
     margin-top: 0px;
-    height: 570px;
-    width: 1300px;
+    height: 600px;
+    width: 100%;
     font-size: 20px;
     font-family: 'Times New Roman', Times, serif;
     background-color: white;

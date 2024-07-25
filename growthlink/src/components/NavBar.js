@@ -33,7 +33,7 @@ const NavBar = () => {
                     ) : (
                         <div className='User'>
                             <NavLink to='/logIn' className='navlink'>Log In</NavLink>
-                            <Button className='get-started-btn' buttonStyle='btn--outline' link='/signUp'>Get Started</Button>
+                            <Button className='get-started-btn' buttonStyle='btn--landingpage' link='/signUp'>Get Started</Button>
                         </div>
                     )}
                 </div>

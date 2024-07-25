@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { useAuthValue } from './AuthContext'; // Ensure this path is correct
+import { useAuthValue } from './AuthContext'; 
 import { arrayRemove, arrayUnion, onSnapshot, updateDoc, doc } from 'firebase/firestore';
 import { db } from "../firebase";
 
@@ -24,7 +24,7 @@ export function EventsProvider({ children }) {
             setLoggedIn(token);
             setUser(user);
         }
-    }, []);
+    }, [setLoggedIn, setUser]);
 
     useEffect(() => {
         if (isLoggedIn) {
