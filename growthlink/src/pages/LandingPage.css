@@ -6,17 +6,15 @@
 
 .ind-features {
     margin-top: 5%;
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
 }
 
-
-.ind-features .addToCalendar,
-.ind-features .dashboard {
-    flex: 1;
-}
 
 .ind-features p {
     font-size: 16px;
     margin-top: 20px;
     flex-wrap: wrap;
+    margin-bottom: 10px;
 }

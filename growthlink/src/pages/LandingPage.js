@@ -18,8 +18,16 @@ const LandingPage = () => {
             <img src='https://private-user-images.githubusercontent.com/156313861/351921961-b3dcce76-39de-42d0-af7a-a1135ffd810c.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MjE4Njk2MTYsIm5iZiI6MTcyMTg2OTMxNiwicGF0aCI6Ii8xNTYzMTM4NjEvMzUxOTIxOTYxLWIzZGNjZTc2LTM5ZGUtNDJkMC1hZjdhLWExMTM1ZmZkODEwYy5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwNzI1JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDcyNVQwMTAxNTZaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT03YjFhZGQzMjBjODBjZWU0YWQzY2E2OGQzOGIwOGY1MmRmMDE1YTBmMzVkNzc5YTMyMzJjMzIwNTMyN2E5MDFlJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.VxbHfUA-vf6XclWP1DF2j2cwdU2Z85GIwdA3QrguxB0' alt="Dashboard page" width="400px" height="400px"></img>
             <p>A dashboard to display opportunities a USER has bookmarked, or posts made by an ADMIN. </p>
           </div>
-          <div className='feature3'>
-            <img src='#' alt="feature 3" width="400px" height="400px"></img>
+          <div className='bookmarkpage'>
+            <img src='#' alt="bookmark" width="400px" height="400px"></img>
+            <p></p>
+          </div>
+          <div className='search'>
+            <img src='#' alt="search" width="400px" height="400px"></img>
+            <p></p>
+          </div>
+          <div className='filter'>
+            <img src='#' alt="filter" width="400px" height="400px"></img>
             <p></p>
           </div>
         </div>
