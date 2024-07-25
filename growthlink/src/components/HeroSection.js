@@ -10,7 +10,7 @@ const HeroSection = () => {
     <div className="hero-container">
       <div className = 'pagedescription'>
         <div className='hero-btns'>
-          <Button className="btns" buttonStyle='btn--outline'
+          <Button className="btns" buttonStyle='btn--landingpage'
           buttonSize='btn--large' link='/signUp'>
               Get Started
           </Button>
