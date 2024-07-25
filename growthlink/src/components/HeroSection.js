@@ -11,7 +11,7 @@ const HeroSection = () => {
       <div className = 'pagedescription'>
         <div className='hero-btns'>
           <Button className="btns" buttonStyle='btn--landingpage'
-          buttonSize='btn--large' link='/signUp'>
+          buttonSize='btn--big' link='/signUp'>
               Get Started
           </Button>
           

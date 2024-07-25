@@ -38,13 +38,6 @@
     border-radius: 3px;
 }
 
-.btn--landingpage :hover {
-    background-color: darkseagreen;
-    color: white;
-    border: 1px solid darkseagreen;
-    border-radius: 3px;
-}
-
 .btn--small {
     padding: 8px 10px;
     font-size: 15px;
@@ -55,7 +48,8 @@
     font-size: 20px;
 }
 
-.btn--large {
+.btn--large, 
+.btn--big {
     padding: 8px 26px;
     font-size: 26px;
 }
@@ -67,5 +61,11 @@
     color: black;
     transition: all 0.3s ease-out;
     outline: none;
+}
 
+.btn--big:hover {
+    background-color: darkseagreen;
+    color: white;
+    border: 1px solid darkseagreen;
+    border-radius: 3px;
 }
