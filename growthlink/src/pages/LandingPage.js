@@ -1,19 +1,22 @@
 import React from 'react'
 import HeroSection from '../components/HeroSection'
 import Events from './Events'
+import './LandingPage.css';
 
 const LandingPage = () => {
   return (
     <>
-      <HeroSection/>
+      <HeroSection />
       <div className='features'>
-      <h4>Features: </h4>
-      <div className='addToCalendar'>
-        <img src ='#'></img>
-        <p>Add to calendar</p>
+        <h2>Features: </h2>
+        <div className='ind-feature'>
+          <div className='addToCalendar'>
+            <img src='#'></img>
+            <p>Add to calendar</p>
+          </div>
+        </div>
       </div>
-      </div>
-      <Events/>
+      <Events />
     </>
   )
 }
