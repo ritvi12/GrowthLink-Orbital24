@@ -12,6 +12,7 @@
     font-weight: bolder;
     letter-spacing: 3px;
     text-transform: uppercase;
+    background-color: white;
 }
 
 .bottomleft::before {
@@ -22,6 +23,7 @@
     right: 0;
     border-top: 1px solid black;
     height: 0px;
+    background-color: white;
 }
 
 .scrollable-container{ 
@@ -42,4 +44,5 @@
     padding: 10px;
     width: auto;
     height: 450px;
+    outline: 2px solid black;
 }
