@@ -31,7 +31,6 @@ export function AuthProvider({ children }) {
             setUser(null);
         }
 
-        
         const unsub = onSnapshot(
             collection(db, "GrowthLinkUsers"),
             (snapshot) => {
@@ -101,7 +100,9 @@ export function AuthProvider({ children }) {
     return (
         <authContext.Provider value={{ createUser, signIn, signOut, isLoggedIn, setLoggedIn, setUser, user }}>
             <ToastContainer />
-            {children}
+            <div data-testid="auth-provider">
+                {children}
+            </div>
         </authContext.Provider>
     );
 }
