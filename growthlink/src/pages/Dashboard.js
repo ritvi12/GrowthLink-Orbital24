@@ -39,7 +39,11 @@ const DashboardItem = (props) => {
     <div className='posting'>
       <div className='title'>
         <h3>{name}</h3>
-        <FaBookmark className={'bookmark-icon bookmarked'} onClick={() => bookmarkEvent(props.event)} />
+        <FaBookmark
+          data-testid={`bookmark-icon-${name}`}
+          className={'bookmark-icon bookmarked'}
+          onClick={() => bookmarkEvent(props.event)}
+        />
         <p className='posting-org'><strong>From: {Organisation}</strong></p>
       </div>
       <div className='content'>
