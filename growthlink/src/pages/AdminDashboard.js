@@ -84,7 +84,7 @@ const AdminDashboard = () => {
                     <p>No posts available.</p>
                 )}
             </div>
-            <button className="add-post-btn" onClick={() => setModalVisible(true)}>
+            <button className="add-post-btn" data-testid="add-post-button" onClick={() => setModalVisible(true)} >
                 <FaPlus />
             </button>
             {modalVisible && (
