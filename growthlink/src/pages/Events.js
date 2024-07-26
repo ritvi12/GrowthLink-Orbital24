@@ -72,7 +72,7 @@ const Events = () => {
   });
 
   return (
-    <div className='main-content'>
+    <div data-testid="events" className='main-content'>
       <center>
         <h2 className='heading'>CHECK OUT THESE OPPORTUNITIES!</h2>
       </center>
@@ -130,13 +130,14 @@ const Frame = (props) => {
   const { name, description, Organisation, contact, date } = props;
   const { bookmarkEvent, bookmarkedEvents } = useEventsContext();
   const isBookmarked = bookmarkedEvents.some(bookmark => bookmark.name === name);
+
   return (
     <div className='posting'>
       <div className='title'>
         <h3>{name}</h3>
         {isBookmarked 
-          ? <FaBookmark className={'bookmark-icon bookmarked'} onClick={() => bookmarkEvent(props)}/> 
-          : <FaRegBookmark className={`bookmark-icon`} onClick={() => bookmarkEvent(props)}/>
+          ? <FaBookmark data-testid={`bookmark-icon-${name}`} className={'bookmark-icon bookmarked'} onClick={() => bookmarkEvent(props)} /> 
+          : <FaRegBookmark data-testid={`bookmark-icon-${name}`} className={'bookmark-icon'} onClick={() => bookmarkEvent(props)} />
         }
         <p className='posting-org'><strong>From: {Organisation}</strong></p>
       </div>
@@ -151,5 +152,7 @@ const Frame = (props) => {
     </div>
   );
 };
+
+
 
 export default Events;

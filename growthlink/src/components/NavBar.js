@@ -1,3 +1,4 @@
+// NavBar.js
 import React, { useState } from 'react';
 import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
@@ -24,7 +25,7 @@ const NavBar = () => {
         <>
             <IconContext.Provider value={{ color: 'black' }}>
                 <div className='navbar'>
-                    <div className='menu-bars'>
+                    <div className='menu-bars' data-testid='menu-bars'>
                         <FaIcons.FaBars onClick={showSideBar} />
                     </div>
                     <NavLink className='Name' to='/'>GROWTHLINK</NavLink>
@@ -40,26 +41,24 @@ const NavBar = () => {
                 <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
                     <ul className='nav-menu-items' onClick={showSideBar}>
                         <li className='navbar-toggle'>
-                            <div className='menu-bars'>
+                            <div className='menu-bars' data-testid='close-icon'>
                                 <AiIcons.AiOutlineClose />
                             </div>
                         </li>
                         {isLoggedIn && getNavBarData().map((item, index) => (
                             <li key={index} className={item.cName}>
-                                <Link to={item.path}>
+                                <NavLink to={item.path} activeClassName='active'>
                                     {item.icon}
                                     <span>{item.title}</span>
-                                </Link>
+                                </NavLink>
                             </li>
                         ))}
                         <div className='button'>
-                            <Link to={isLoggedIn ? "/home" : "/signUp"}>
-                                {isLoggedIn ? (
-                                    <Button buttonStyle='btn--outline' link="/" onClick={signOut}>SIGN OUT</Button>
-                                ) : (
-                                    <Button buttonStyle='btn--outline' link="/signUp">SIGN UP</Button>
-                                )}
-                            </Link>
+                            {isLoggedIn ? (
+                                <Button buttonStyle='btn--outline' onClick={signOut}>SIGN OUT</Button>
+                            ) : (
+                                <Button buttonStyle='btn--outline' link="/signUp">SIGN UP</Button>
+                            )}
                         </div>
                     </ul>
                 </nav>

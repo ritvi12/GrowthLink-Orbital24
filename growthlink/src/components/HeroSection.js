@@ -7,7 +7,7 @@ const HeroSection = () => {
   
 
   return (
-    <div className="hero-container">
+    <div data-testid="hero-section"className="hero-container">
       <div className = 'pagedescription'>
         <div className='hero-btns'>
           <Button className="btns" buttonStyle='btn--landingpage'
