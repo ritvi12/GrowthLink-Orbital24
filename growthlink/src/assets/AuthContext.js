@@ -1,114 +1,107 @@
-// AuthProvider.test.js
-import React from 'react';
-import { render, screen, act, fireEvent } from '@testing-library/react';
-import { AuthProvider, useAuthValue } from './AuthContext';
-import { ToastContainer } from 'react-toastify';
-import '@testing-library/jest-dom';
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/firestore';
-import firebaseMock from 'firebase-mock';
+import React, { useEffect, useState, useContext } from "react";
+import { db } from "../firebase";
+import { collection, addDoc, onSnapshot } from "firebase/firestore";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
-// Mock Firebase
-const mockFirestore = new firebaseMock.MockFirestore();
-const mockFirebase = new firebaseMock.MockFirebaseSdk();
-mockFirebase.firestore = () => mockFirestore;
-firebase.initializeApp = () => mockFirebase;
+const authContext = React.createContext();
 
-// Mock React-Toastify
-jest.mock('react-toastify', () => ({
-    ToastContainer: () => <div>ToastContainer Mock</div>,
-    toast: {
-        success: jest.fn(),
-        error: jest.fn(),
-    },
-}));
+export function useAuthValue() {
+    return useContext(authContext);
+}
 
-const TestComponent = () => {
-    const { createUser, signIn, signOut, isLoggedIn, user } = useAuthValue();
-    
+export function AuthProvider({ children }) {
+    const [isLoggedIn, setLoggedIn] = useState(false);
+    const [user, setUser] = useState(null);
+    const [userList, setUserList] = useState([]);
+
+    useEffect(() => {
+        console.log("Checking stored user and token");
+        const storedUser = JSON.parse(window.localStorage.getItem("index"));
+        const storedToken = window.localStorage.getItem("token");
+
+        console.log("Stored User:", storedUser);
+        console.log("Stored Token:", storedToken);
+
+        if (storedUser && storedToken) {
+            setLoggedIn(true);
+            setUser(storedUser);
+        } else {
+            setLoggedIn(false);
+            setUser(null);
+        }
+
+        
+        const unsub = onSnapshot(
+            collection(db, "GrowthLinkUsers"),
+            (snapshot) => {
+                const users = snapshot.docs.map((doc) => ({
+                    id: doc.id,
+                    ...doc.data()
+                }));
+                setUserList(users);
+                console.log("Updated User List:", users);
+            }
+        );
+
+        return () => unsub();
+    }, []);
+
+    async function createUser(data) {
+        const index = userList.findIndex((user) => user.email === data.email);
+        if (index !== -1) {
+            toast.error("User already exists! Sign In!");
+            return;
+        }
+        await addDoc(collection(db, "GrowthLinkUsers"), {
+            name: data.name,
+            email: data.email,
+            password: data.password,
+            role: data.role || 'user', 
+            bookmarkedEvents: []
+        });
+        toast.success("Signed Up Successfully! Log In Now!");
+    }
+
+    async function signIn(data) {
+        console.log("Sign In Attempt:", data);
+        const index = userList.findIndex((user) => user.email === data.email);
+        if (index === -1) {
+            toast.error("User does not exist! Sign Up!");
+            return false;
+        }
+        const foundUser = userList[index];
+        console.log("Found User:", foundUser);
+        if (foundUser.password === data.password) {
+            if (foundUser.role && foundUser.role !== data.role) {
+                toast.error(`Please log in as ${foundUser.role}!`);
+                return false;
+            }
+            toast.success("Signed In Successfully!");
+            setLoggedIn(true);
+            setUser(foundUser);
+            window.localStorage.setItem("token", true);
+            window.localStorage.setItem("index", JSON.stringify(foundUser));
+            return true;
+        } else {
+            toast.error("Incorrect Password!");
+            return false;
+        }
+    }
+
+    async function signOut() {
+        console.log("Signing out...");
+        window.localStorage.removeItem("token");
+        window.localStorage.removeItem("index");
+        setLoggedIn(false);
+        setUser(null);
+        toast.success("Logged Out!");
+    }
+
     return (
-        <div>
-            <button onClick={() => createUser({ email: 'test@example.com', name: 'Test User', password: 'password' })}>Create User</button>
-            <button onClick={() => signIn({ email: 'test@example.com', password: 'password' })}>Sign In</button>
-            <button onClick={() => signOut()}>Sign Out</button>
-            <div>Logged In: {isLoggedIn ? 'Yes' : 'No'}</div>
-            <div>User: {user ? user.name : 'None'}</div>
-        </div>
+        <authContext.Provider value={{ createUser, signIn, signOut, isLoggedIn, setLoggedIn, setUser, user }}>
+            <ToastContainer />
+            {children}
+        </authContext.Provider>
     );
-};
-
-describe('AuthProvider', () => {
-    beforeEach(() => {
-        jest.clearAllMocks();
-    });
-
-    test('renders AuthProvider and provides context', () => {
-        render(
-            <AuthProvider>
-                <TestComponent />
-            </AuthProvider>
-        );
-
-        expect(screen.getByText('ToastContainer Mock')).toBeInTheDocument();
-    });
-
-    test('createUser function works correctly', async () => {
-        render(
-            <AuthProvider>
-                <TestComponent />
-            </AuthProvider>
-        );
-
-        const createUserButton = screen.getByText('Create User');
-        await act(async () => {
-            fireEvent.click(createUserButton);
-        });
-
-        // Check if toast.success is called
-        expect(toast.success).toHaveBeenCalledWith('Signed Up Successfully! Log In Now!');
-    });
-
-    test('signIn function works correctly', async () => {
-        mockFirestore.set('GrowthLinkUsers/test@example.com', {
-            name: 'Test User',
-            email: 'test@example.com',
-            password: 'password',
-            role: 'user',
-        });
-
-        render(
-            <AuthProvider>
-                <TestComponent />
-            </AuthProvider>
-        );
-
-        const signInButton = screen.getByText('Sign In');
-        await act(async () => {
-            fireEvent.click(signInButton);
-        });
-
-        // Check if toast.success is called
-        expect(toast.success).toHaveBeenCalledWith('Signed In Successfully!');
-        expect(screen.getByText('Logged In: Yes')).toBeInTheDocument();
-        expect(screen.getByText('User: Test User')).toBeInTheDocument();
-    });
-
-    test('signOut function works correctly', async () => {
-        // Set user as logged in
-        render(
-            <AuthProvider>
-                <TestComponent />
-            </AuthProvider>
-        );
-
-        const signOutButton = screen.getByText('Sign Out');
-        await act(async () => {
-            fireEvent.click(signOutButton);
-        });
-
-        // Check if toast.success is called
-        expect(toast.success).toHaveBeenCalledWith('Logged Out!');
-        expect(screen.getByText('Logged In: No')).toBeInTheDocument();
-        expect(screen.getByText('User: None')).toBeInTheDocument();
-    });
-});
+}
