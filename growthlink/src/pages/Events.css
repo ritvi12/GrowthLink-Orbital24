@@ -129,11 +129,9 @@
 }
 
 .filter-button:hover {
-  background-color: #FDFABA;
-  color: black;
+  background-color: #8fbc8f;
 }
 
 .filter-button.active {
-  background-color: #FDFABA;
-  color: black;
+  background-color: #8fbc8f;
 }
