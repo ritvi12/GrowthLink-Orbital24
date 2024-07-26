@@ -52,6 +52,8 @@ const Events = () => {
 
   const isDate = (query) => !isNaN(Date.parse(query));
 
+  const currentDate = new Date();
+
   const filteredEvents = events.filter(event => {
     const eventDate = new Date(event.ApplicationPeriod);
     const searchDateObj = isDate(selectedDate) ? new Date(selectedDate) : null;
@@ -61,10 +63,12 @@ const Events = () => {
     const matchesOrganization = event.Organisation.toLowerCase().includes(queryLower);
 
     const matchesDate = searchDateObj ? eventDate < searchDateObj : true;
-
     const matchesOrgSelection = selectedOrganizations.length === 0 || selectedOrganizations.includes(event.Organisation.trim());
 
-    return (matchesName || matchesOrganization) && matchesDate && matchesOrgSelection;
+    // Check if the event date has not passed
+    const isUpcomingEvent = eventDate >= currentDate;
+
+    return (matchesName || matchesOrganization) && matchesDate && matchesOrgSelection && isUpcomingEvent;
   });
 
   return (
