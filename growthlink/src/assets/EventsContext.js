@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useAuthValue } from './AuthContext'; 
-import { arrayRemove, arrayUnion, onSnapshot, updateDoc, doc } from 'firebase/firestore';
+import { arrayRemove, arrayUnion, onSnapshot, updateDoc, doc, addDoc, collection, deleteDoc } from 'firebase/firestore';
 import { db } from "../firebase";
 
 export const EventContext = createContext();
@@ -15,6 +15,7 @@ export function EventsProvider({ children }) {
     const { isLoggedIn, user, setUser, setLoggedIn } = useAuthValue();
     const [dashboard, setMyDashboard] = useState([]);
     const [bookmarkedEvents, setBookmarkedEvents] = useState([]);
+    const [posts, setPosts] = useState([]);
 
     useEffect(() => {
         const token = window.localStorage.getItem("token");
@@ -33,7 +34,16 @@ export function EventsProvider({ children }) {
                 setBookmarkedEvents(doc.data().bookmarkedEvents || []);
             });
 
-            return () => unsub();
+            const postsQuery = collection(db, 'Events');
+            const unsubPosts = onSnapshot(postsQuery, (snapshot) => {
+                const postsList = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                setPosts(postsList);
+            });
+
+            return () => {
+                unsub();
+                unsubPosts();
+            };
         }
     }, [user, isLoggedIn]);
 
@@ -95,8 +105,39 @@ export function EventsProvider({ children }) {
         toast.success("Bookmark removed");
     }
 
+    async function addPost(newPost) {
+        try {
+            const docRef = await addDoc(collection(db, 'Events'), newPost);
+            setPosts([...posts, { id: docRef.id, ...newPost }]);
+            toast.success('Post added successfully!');
+        } catch (error) {
+            console.error('Error adding post: ', error);
+            toast.error('Error adding post. Please try again.');
+        }
+    }
+
+    async function deletePost(postId) {
+        try {
+            await deleteDoc(doc(db, 'Events', postId));
+            setPosts(posts.filter(post => post.id !== postId));
+            toast.success('Post deleted successfully!');
+        } catch (error) {
+            console.error('Error deleting post: ', error);
+            toast.error('Error deleting post. Please try again.');
+        }
+    }
+
     return (
-        <EventContext.Provider value={{ addToDashBoard, dashboard, removeFromDashBoard, bookmarkEvent, bookmarkedEvents }}>
+        <EventContext.Provider value={{
+            addToDashBoard,
+            dashboard,
+            removeFromDashBoard,
+            bookmarkEvent,
+            bookmarkedEvents,
+            addPost,
+            deletePost,
+            posts
+        }}>
             {children}
         </EventContext.Provider>
     );
