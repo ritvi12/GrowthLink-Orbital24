@@ -67,6 +67,7 @@ const AdminDashboard = () => {
                 <div className="stat-box">
                     <h2>{posts.length}</h2>
                     <p>Total Posts</p>
+
                 </div>
             </div>
             <div className="my-posts">

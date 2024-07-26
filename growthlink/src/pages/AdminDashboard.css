@@ -6,6 +6,7 @@
     /* You can also set the width to 100% if needed */
 }
 
+
 .dashboard-stats {
     display: flex;
     justify-content: flex-start; /* Align items to the left */
@@ -148,6 +149,7 @@
 .modal-form {
     display: flex;
     flex-direction: column;
+    margin-top: 18px;
 }
 
 .form-group {
@@ -170,10 +172,16 @@
     font-size: 16px;
 }
 
+.form-group textarea {
+    height: 200px;
+}
+
 button {
     padding: 10px 20px;
-    background-color: #4CAF50;
+    background-color: darkseagreen;
     color: white;
+    font-size: 20px;
+    border-radius: 3px;
     border: none;
     border-radius: 4px;
     cursor: pointer;

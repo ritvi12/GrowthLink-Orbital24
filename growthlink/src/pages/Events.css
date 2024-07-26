@@ -21,6 +21,10 @@
   justify-content: space-between;
 }
 
+.grid-item .buttons Button {
+  color: white;
+}
+
 .grid-item:hover{
   background-color: darkseagreen;
   color: white;
@@ -28,6 +32,7 @@
 .grid-item:hover .buttons Button {
   border-color: black;
   background-color: white;
+  color: black;
 }
 
 .grid-item:hover .buttons Button:hover {

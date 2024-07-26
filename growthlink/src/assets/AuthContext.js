@@ -16,6 +16,22 @@ export function AuthProvider({ children }) {
     const [userList, setUserList] = useState([]);
 
     useEffect(() => {
+        console.log("Checking stored user and token");
+        const storedUser = JSON.parse(window.localStorage.getItem("index"));
+        const storedToken = window.localStorage.getItem("token");
+
+        console.log("Stored User:", storedUser);
+        console.log("Stored Token:", storedToken);
+
+        if (storedUser && storedToken) {
+            setLoggedIn(true);
+            setUser(storedUser);
+        } else {
+            setLoggedIn(false);
+            setUser(null);
+        }
+
+        // Listen for changes in the Firestore user collection
         const unsub = onSnapshot(
             collection(db, "GrowthLinkUsers"),
             (snapshot) => {
@@ -24,10 +40,12 @@ export function AuthProvider({ children }) {
                     ...doc.data()
                 }));
                 setUserList(users);
+                console.log("Updated User List:", users);
             }
         );
+
         return () => unsub();
-    }, [isLoggedIn]);
+    }, []);
 
     async function createUser(data) {
         const index = userList.findIndex((user) => user.email === data.email);
@@ -47,14 +65,15 @@ export function AuthProvider({ children }) {
     }
 
     async function signIn(data) {
+        console.log("Sign In Attempt:", data);
         const index = userList.findIndex((user) => user.email === data.email);
         if (index === -1) {
             toast.error("User does not exist! Sign Up!");
             return false;
         }
         const foundUser = userList[index];
+        console.log("Found User:", foundUser);
         if (foundUser.password === data.password) {
-            // Default to 'user' role if no role is specified in the database
             if (foundUser.role && foundUser.role !== data.role) {
                 toast.error(`Please log in as ${foundUser.role}!`);
                 return false;
@@ -72,6 +91,7 @@ export function AuthProvider({ children }) {
     }
 
     async function signOut() {
+        console.log("Signing out...");
         window.localStorage.removeItem("token");
         window.localStorage.removeItem("index");
         setLoggedIn(false);
@@ -80,11 +100,9 @@ export function AuthProvider({ children }) {
     }
 
     return (
-        <>
-            <authContext.Provider value={{ createUser, signIn, signOut, isLoggedIn, setLoggedIn, setUser, user }}>
-                <ToastContainer />
-                {children}
-            </authContext.Provider>
-        </>
+        <authContext.Provider value={{ createUser, signIn, signOut, isLoggedIn, setLoggedIn, setUser, user }}>
+            <ToastContainer />
+            {children}
+        </authContext.Provider>
     );
 }
