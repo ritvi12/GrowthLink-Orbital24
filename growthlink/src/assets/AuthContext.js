@@ -31,7 +31,7 @@ export function AuthProvider({ children }) {
             setUser(null);
         }
 
-        // Listen for changes in the Firestore user collection
+        
         const unsub = onSnapshot(
             collection(db, "GrowthLinkUsers"),
             (snapshot) => {
@@ -57,9 +57,8 @@ export function AuthProvider({ children }) {
             name: data.name,
             email: data.email,
             password: data.password,
-            role: data.role || 'user', // Default to 'user' if no role is specified
-            dashboard: [],
-            bookmarks: []
+            role: data.role || 'user', 
+            bookmarkedEvents: []
         });
         toast.success("Signed Up Successfully! Log In Now!");
     }

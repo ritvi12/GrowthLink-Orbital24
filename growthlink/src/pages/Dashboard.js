@@ -1,69 +1,51 @@
 import React from 'react';
 import { useEventsContext } from '../assets/EventsContext';
-//import { useAuthValue } from '../assets/AuthContext';
 import { Button } from '../components/Button';
 import './Events.css';
 import Footer from '../components/Footer';
+import { FaBookmark } from 'react-icons/fa';
 
 const Dashboard = () => {
-  const { dashboard, bookmarkedEvents } = useEventsContext();
-  // const { user } = useAuthValue();
+  const { bookmarkedEvents } = useEventsContext();
 
   return (
     <div>
-      <div>
-        <center>
-          <h1 className='heading'>My DashBoard!</h1>
-        </center>
-
-        <div className='grid-container'>
-          {dashboard.length === 0 ? (
-            <h1>Your Events!</h1>
-          ) : (
-            dashboard.map((event, index) => (
-              <div key={index} className="grid-item">
-                <DashBoardItem
-                  event={event}
-                  key={index}
-                />
-              </div>
-            ))
-          )}
-        </div>
-        <center>
-          <h1 className='heading'>Bookmarked Events!</h1>
-        </center>
-        <div className='grid-container'>
-          {bookmarkedEvents.length === 0 ? (
-            <></>
-          ) : (
-            bookmarkedEvents.map((event, index) => (
-              <div key={index} className="grid-item">
-                <DashBoardItem
-                  event={event}
-                  key={index}
-                />
-              </div>
-            ))
-          )}
-        </div>
+      <center>
+      {bookmarkedEvents.length === 0 
+        ? ( <h1 className='heading'>No Bookmarked Events!</h1>)
+        : (<h1 className='heading'>Bookmarked Events!</h1>)}
+      </center>
+      <div className='grid-container'>
+        {bookmarkedEvents.length === 0 ? (
+          <></>
+        ) : (
+          bookmarkedEvents.map((event, index) => (
+            <div key={index} className="grid-item">
+              <DashboardItem event={event} />
+            </div>
+          ))
+        )}
       </div>
       <Footer />
     </div>
   );
 };
 
-const DashBoardItem = (props) => {
+const DashboardItem = (props) => {
   const { name, description, Organisation, contact, date } = props.event;
+  const { bookmarkEvent } = useEventsContext();
 
   return (
     <div className='posting'>
-      <h3 className='title'>{name}</h3>
+      <div className='title'>
+        <h3>{name}</h3>
+        <FaBookmark className={'bookmark-icon bookmarked'} onClick={() => bookmarkEvent(props.event)} />
+        <p className='posting-org'><strong>From: {Organisation}</strong></p>
+      </div>
       <div className='content'>
         <p><strong>Description:</strong> {description}</p>
-        <p><strong>Organisation:</strong> {Organisation}</p>
         <p><strong>Telegram Contact:</strong> {contact}</p>
-        <p><strong>Application Period:</strong> {date}</p>
+        <p><strong>Application Deadline:</strong> {date}</p>
       </div>
       <div className='buttons'>
         <Button buttonSize='btn--small' buttonStyle='btn--primary'>ADD TO CALENDAR</Button>
