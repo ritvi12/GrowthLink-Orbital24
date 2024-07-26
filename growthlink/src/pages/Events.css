@@ -74,6 +74,7 @@
 .grid-item:hover .buttons Button {
   border-color: black;
   background-color: white;
+  color: black;
 }
 
 .grid-item:hover .buttons Button:hover {
@@ -162,11 +163,9 @@
 }
 
 .filter-button:hover {
-  background-color: #FDFABA;
-  color: black;
+  background-color: #8fbc8f;
 }
 
 .filter-button.active {
-  background-color: #FDFABA;
-  color: black;
+  background-color: #8fbc8f;
 }

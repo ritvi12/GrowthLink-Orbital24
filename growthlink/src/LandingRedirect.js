@@ -3,15 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import { useAuthValue } from './assets/AuthContext';
 
 const LandingRedirect = ({ children }) => {
-  const { isLoggedIn, signOut } = useAuthValue();
+  const { isLoggedIn } = useAuthValue();
   const navigate = useNavigate();
 
   useEffect(() => {
     if (isLoggedIn) {
-      signOut();
-      navigate('/');
+      navigate('/home'); 
     }
-  }, [isLoggedIn, signOut, navigate]);
+  }, [isLoggedIn, navigate]);
 
   return children;
 };
