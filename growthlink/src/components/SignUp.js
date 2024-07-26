@@ -28,15 +28,17 @@ const SignUp = () => {
     return (
         <div className='Container'>
             <div className='inputForm'>
-                <h1>Sign Up!</h1>
+                <h1 data-testid='signup-heading'>Sign Up!</h1>
                 <div className='tabs'>
                     <button
+                        data-testid='user-tab'
                         className={`tab ${tab === 'user' ? 'active' : ''}`}
                         onClick={() => setTab('user')}
                     >
                         User
                     </button>
                     <button
+                        data-testid='admin-tab'
                         className={`tab ${tab === 'admin' ? 'active' : ''}`}
                         onClick={() => setTab('admin')}
                     >
@@ -44,14 +46,14 @@ const SignUp = () => {
                     </button>
                 </div>
                 <form onSubmit={handleSubmit}>
-                    <input type="text" placeholder='Name' required ref={nameRef} />
-                    <input type="email" placeholder='Enter email' required ref={emailRef} />
-                    <input type='password' placeholder='Enter password' required ref={passwordRef} />
-                    <button>Sign Up!</button>   
+                    <input type="text" placeholder='Name' required ref={nameRef} data-testid='name-input' />
+                    <input type="email" placeholder='Enter email' required ref={emailRef} data-testid='email-input' />
+                    <input type='password' placeholder='Enter password' required ref={passwordRef} data-testid='password-input' />
+                    <button type='submit' data-testid='signup-button'>Sign Up!</button>   
                 </form>
                 <br />
                 <span>Already have an Account? &nbsp;</span>
-                <NavLink to='/logIn'>Log In</NavLink>
+                <NavLink to='/logIn' data-testid='login-link'>Log In</NavLink>
             </div>
         </div>
     );
