@@ -4,9 +4,15 @@
     margin: 0 auto;
 }
 
+.admin-dashboard p {
+    margin-top: 2px;
+    font-size: 15px;
+}
+
 .post-form {
     display: flex;
     flex-direction: column;
+    margin-top: 18px;
 }
 
 .form-group {
@@ -25,10 +31,16 @@
     box-sizing: border-box;
 }
 
+.form-group textarea {
+    height: 200px;
+}
+
 button {
     padding: 10px 20px;
-    background-color: #4CAF50;
+    background-color: darkseagreen;
     color: white;
+    font-size: 20px;
+    border-radius: 3px;
     border: none;
     cursor: pointer;
 }

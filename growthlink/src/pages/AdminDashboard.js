@@ -31,6 +31,7 @@ const AdminDashboard = () => {
     return (
         <div className="admin-dashboard">
             <h1>Admin Dashboard</h1>
+            <p>Please key in the details of your post! (e.g. description, application deadline, contact)</p>
             <form className="post-form" onSubmit={handleAddPost}>
                 <div className="form-group">
                     <label htmlFor="title">Title</label>
