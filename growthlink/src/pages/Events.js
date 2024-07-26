@@ -27,10 +27,6 @@ const Events = () => {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    // Optionally: Implement debouncing for better performance
-  }, [searchQuery, selectedDate, selectedOrganizations]);
-
   const uniqueOrganizations = Array.from(new Set(events.map(event => event.Organisation.trim())));
   const organizations = ['All', ...uniqueOrganizations];
 
@@ -57,22 +53,17 @@ const Events = () => {
   const isDate = (query) => !isNaN(Date.parse(query));
 
   const filteredEvents = events.filter(event => {
-    // Convert the event date and query date to Date objects
     const eventDate = new Date(event.ApplicationPeriod);
     const searchDateObj = isDate(selectedDate) ? new Date(selectedDate) : null;
 
-    // Check if the event name or organization matches the search query
     const queryLower = searchQuery.toLowerCase();
     const matchesName = event.Name.toLowerCase().includes(queryLower);
     const matchesOrganization = event.Organisation.toLowerCase().includes(queryLower);
 
-    // Check if the event date is less than the selected date
     const matchesDate = searchDateObj ? eventDate < searchDateObj : true;
 
-    // Check if the event organization matches the selected organizations
     const matchesOrgSelection = selectedOrganizations.length === 0 || selectedOrganizations.includes(event.Organisation.trim());
 
-    // Combine all match conditions
     return (matchesName || matchesOrganization) && matchesDate && matchesOrgSelection;
   });
 
@@ -133,7 +124,7 @@ const Events = () => {
 
 const Frame = (props) => {
   const { name, description, Organisation, contact, date } = props;
-  const { addToDashBoard, bookmarkEvent, bookmarkedEvents } = useEventsContext();
+  const { bookmarkEvent, bookmarkedEvents } = useEventsContext();
   const isBookmarked = bookmarkedEvents.some(bookmark => bookmark.name === name);
   return (
     <div className='posting'>
@@ -151,7 +142,7 @@ const Frame = (props) => {
         <p><strong>Application Deadline:</strong> {date}</p>
       </div>
       <div className='buttons'>
-        <Button buttonSize='btn--small' buttonStyle='btn--primary' onClick={() => addToDashBoard(props)}>ADD TO DASHBOARD</Button>
+        <Button buttonSize='btn--small' buttonStyle='btn--primary'>ADD TO CALENDAR</Button>
       </div>
     </div>
   );
