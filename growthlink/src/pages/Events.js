@@ -27,7 +27,11 @@ const Events = () => {
     fetchData();
   }, []);
 
-  const uniqueOrganizations = Array.from(new Set(events.map(event => event.Organisation.trim())));
+  useEffect(() => {
+    // Optionally: Implement debouncing for better performance
+  }, [searchQuery, selectedDate, selectedOrganizations]);
+
+  const uniqueOrganizations = Array.from(new Set(events.map(event => (event.Organisation || '').trim())));
   const organizations = ['All', ...uniqueOrganizations];
 
   const handleFilterChange = (org) => {
@@ -52,24 +56,26 @@ const Events = () => {
 
   const isDate = (query) => !isNaN(Date.parse(query));
 
-  const currentDate = new Date();
-
   const filteredEvents = events.filter(event => {
-    const eventDate = new Date(event.ApplicationPeriod);
+    // Default values if properties are missing
+    const eventDate = new Date(event.ApplicationPeriod || '');
     const searchDateObj = isDate(selectedDate) ? new Date(selectedDate) : null;
-
+  
+    // Check if the event name or organization matches the search query
     const queryLower = searchQuery.toLowerCase();
-    const matchesName = event.Name.toLowerCase().includes(queryLower);
-    const matchesOrganization = event.Organisation.toLowerCase().includes(queryLower);
-
+    const matchesName = (event.Name || '').toLowerCase().includes(queryLower);
+    const matchesOrganization = (event.Organisation || '').toLowerCase().includes(queryLower);
+  
+    // Check if the event date is less than the selected date
     const matchesDate = searchDateObj ? eventDate < searchDateObj : true;
-    const matchesOrgSelection = selectedOrganizations.length === 0 || selectedOrganizations.includes(event.Organisation.trim());
-
-    // Check if the event date has not passed
-    const isUpcomingEvent = eventDate >= currentDate;
-
-    return (matchesName || matchesOrganization) && matchesDate && matchesOrgSelection && isUpcomingEvent;
+  
+    // Check if the event organization matches the selected organizations
+    const matchesOrgSelection = selectedOrganizations.length === 0 || (event.Organisation || '').trim();
+  
+    // Combine all match conditions
+    return (matchesName || matchesOrganization) && matchesDate && matchesOrgSelection;
   });
+  
 
   return (
     <div className='main-content'>
@@ -128,8 +134,17 @@ const Events = () => {
 
 const Frame = (props) => {
   const { name, description, Organisation, contact, date } = props;
-  const { bookmarkEvent, bookmarkedEvents } = useEventsContext();
+  const { bookmarkEvent, bookmarkedEvents, addEvent } = useEventsContext();
   const isBookmarked = bookmarkedEvents.some(bookmark => bookmark.name === name);
+  const handleAddToCalendar = () => {
+    const eventToAdd = {
+      title: name,
+      start: date, // Ensure these are in the correct format
+      end: date,   // Adjust end date as necessary
+    };
+    addEvent(eventToAdd);
+  };
+
   return (
     <div className='posting'>
       <div className='title'>
@@ -146,7 +161,9 @@ const Frame = (props) => {
         <p><strong>Application Deadline:</strong> {date}</p>
       </div>
       <div className='buttons'>
-        <Button buttonSize='btn--small' buttonStyle='btn--primary'>ADD TO CALENDAR</Button>
+        <Button buttonSize='btn--small' buttonStyle='btn--primary' onClick={handleAddToCalendar}>
+          ADD TO CALENDAR
+        </Button>
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { useAuthValue } from './AuthContext';
 import { arrayRemove, arrayUnion, onSnapshot, updateDoc, doc, collection, deleteDoc, addDoc } from 'firebase/firestore';
@@ -15,6 +15,7 @@ export function EventsProvider({ children }) {
     const { isLoggedIn, user, setUser, setLoggedIn } = useAuthValue();
     const [bookmarkedEvents, setBookmarkedEvents] = useState([]);
     const [posts, setPosts] = useState([]);
+    const [events, setEvents] = useState([]);
 
     useEffect(() => {
         const token = window.localStorage.getItem("token");
@@ -66,7 +67,6 @@ export function EventsProvider({ children }) {
                 bookmarkedEvents: arrayUnion(event)
             });
             setBookmarkedEvents(prevEvents => {
-                
                 const newEvents = [...prevEvents];
                 const duplicateIndex = newEvents.findIndex(item => item.name === event.name);
                 if (duplicateIndex === -1) {
@@ -100,13 +100,20 @@ export function EventsProvider({ children }) {
         }
     }
 
+    // Add addEvent function
+    function addEvent(event) {
+        setEvents(prevEvents => [...prevEvents, event]);
+    }
+
     return (
         <EventContext.Provider value={{
             bookmarkEvent,
             bookmarkedEvents,
             addPost,
             deletePost,
-            posts
+            posts,
+            addEvent, // Add addEvent to the context value
+            events
         }}>
             {children}
         </EventContext.Provider>
