@@ -17,7 +17,7 @@ const Dashboard = () => {
       </center>
       <div className='grid-container'>
         {bookmarkedEvents.length === 0 ? (
-          <></>
+         <></>
         ) : (
           bookmarkedEvents.map((event, index) => (
             <div key={index} className="grid-item">

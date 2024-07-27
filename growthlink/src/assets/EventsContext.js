@@ -69,7 +69,7 @@ export function EventsProvider({ children }) {
             await updateDoc(userRef, {
                 bookmarkedEvents: arrayUnion(event)
             });
-  setBookmarkedEvents(prevEvents => {
+            setBookmarkedEvents(prevEvents => {
                 
                 const newEvents = [...prevEvents];
                 const duplicateIndex = newEvents.findIndex(item => item.name === event.name);
