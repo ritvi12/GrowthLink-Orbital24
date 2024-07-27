@@ -15,16 +15,20 @@ const LandingPage = () => {
             <div class="bottomleft">Filter feature</div>
           </div>
           <div className='scrollable-img'>
-            <img src={`${process.env.PUBLIC_URL}/images/Admindashboard.png`} alt="Admin dashboard page"></img>
-            <div class="bottomleft">Admin dashboard page</div>
-          </div>
-          <div className='scrollable-img'>
             <img src={`${process.env.PUBLIC_URL}/images/Bookmark.png`} alt="Bookmark feature"></img>
             <div class="bottomleft">Bookmark feature</div>
           </div>
           <div className='scrollable-img'>
             <img src={`${process.env.PUBLIC_URL}/images/Search.png`} alt="Search feature"></img>
             <div class="bottomleft">Search feature</div>
+          </div>
+          <div className='scrollable-img'>
+            <img src={`${process.env.PUBLIC_URL}/images/Calendar.png`} alt="Calendar page"></img>
+            <div class="bottomleft">Calendar page</div>
+          </div>
+          <div className='scrollable-img'>
+            <img src={`${process.env.PUBLIC_URL}/images/Admindashboard.png`} alt="Admin dashboard page"></img>
+            <div class="bottomleft">Admin dashboard page</div>
           </div>
         </div>
       </div>
