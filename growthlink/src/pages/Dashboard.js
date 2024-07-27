@@ -17,7 +17,7 @@ const Dashboard = () => {
       </center>
       <div className='grid-container'>
         {bookmarkedEvents.length === 0 ? (
-          <p>No events to display</p>
+          <></>
         ) : (
           bookmarkedEvents.map((event, index) => (
             <div key={index} className="grid-item">
@@ -59,6 +59,7 @@ const DashboardItem = ({ event }) => {
           className={'bookmark-icon'}
           onClick={() => bookmarkEvent(event)}
         />
+
         <p className='posting-org'><strong>From: {Organisation}</strong></p>
       </div>
       <div className='content'>

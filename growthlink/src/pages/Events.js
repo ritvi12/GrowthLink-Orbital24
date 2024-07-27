@@ -27,9 +27,6 @@ const Events = () => {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    // Optionally: Implement debouncing for better performance
-  }, [searchQuery, selectedDate, selectedOrganizations]);
 
   const uniqueOrganizations = Array.from(new Set(events.map(event => (event.Organisation || '').trim())));
   const organizations = ['All', ...uniqueOrganizations];
@@ -56,24 +53,28 @@ const Events = () => {
 
   const isDate = (query) => !isNaN(Date.parse(query));
 
+  const currentDate = new Date();
+
   const filteredEvents = events.filter(event => {
     // Default values if properties are missing
     const eventDate = new Date(event.ApplicationPeriod || '');
+
     const searchDateObj = isDate(selectedDate) ? new Date(selectedDate) : null;
 
-    // Check if the event name or organization matches the search query
     const queryLower = searchQuery.toLowerCase();
     const matchesName = (event.Name || '').toLowerCase().includes(queryLower);
     const matchesOrganization = (event.Organisation || '').toLowerCase().includes(queryLower);
 
-    // Check if the event date is less than the selected date
     const matchesDate = searchDateObj ? eventDate < searchDateObj : true;
 
     // Check if the event organization matches the selected organizations
     const matchesOrgSelection = selectedOrganizations.length === 0 || selectedOrganizations.includes(event.Organisation?.trim());
 
-    // Combine all match conditions
-    return (matchesName || matchesOrganization) && matchesDate && matchesOrgSelection;
+
+    // Check if the event date has not passed
+    const isUpcomingEvent = eventDate >= currentDate;
+
+    return (matchesName || matchesOrganization) && matchesDate && matchesOrgSelection && isUpcomingEvent;
   });
 
   return (
@@ -134,6 +135,7 @@ const Events = () => {
 const Frame = (props) => {
   const { name, description, Organisation, contact, date } = props;
   const { bookmarkEvent, bookmarkedEvents, addEventsToCalendar, removeEventsFromCalendar, calendarEvents } = useEventsContext();
+
   const isBookmarked = bookmarkedEvents.some(bookmark => bookmark.name === name);
   const isEventInCalendar = calendarEvents.some(e => e.title === name && e.start === date);
 

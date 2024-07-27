@@ -34,6 +34,7 @@ export function EventsProvider({ children }) {
                 const calendar = doc.data().calendar || [];
                 setBookmarkedEvents(events);
                 setCalendarEvents(calendar);
+
             });
 
             const postsQuery = collection(db, 'Events');
@@ -68,7 +69,15 @@ export function EventsProvider({ children }) {
             await updateDoc(userRef, {
                 bookmarkedEvents: arrayUnion(event)
             });
-            setBookmarkedEvents(prevEvents => [...prevEvents, event]);
+  setBookmarkedEvents(prevEvents => {
+                
+                const newEvents = [...prevEvents];
+                const duplicateIndex = newEvents.findIndex(item => item.name === event.name);
+                if (duplicateIndex === -1) {
+                    newEvents.push(event);
+                }
+                return newEvents;
+            });
             toast.success("Event bookmarked");
         }
     }
