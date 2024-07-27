@@ -1,45 +1,27 @@
 import React from 'react'
 import Footer from '../components/Footer';
 import './Calendar.css';
-// import Calendar from '@toast-ui/calendar';
-import '@toast-ui/calendar/dist/toastui-calendar.min.css';
+import FullCalendar from '@fullcalendar/react';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import interactionPlugin from "@fullcalendar/interaction";
+import timeGridPlugin from "@fullcalendar/timegrid";
 
-/*const calendar = new Calendar('#calendar', {
-  usageStatistics: false,
-  defaultView: 'week',
-  template: {
-    time(event) {
-      const { start, end, title } = event;
 
-      return `<span style="color: white;">${formatTime(start)}~${formatTime(end)} ${title}</span>`;
-    },
-    allday(event) {
-      return `<span style="color: gray;">${event.title}</span>`;
-    },
-  },
-  calendars: [
-    {
-      id: 'cal1',
-      name: 'Personal',
-      backgroundColor: '#03bd9e',
-    },
-    {
-      id: 'cal2',
-      name: 'Work',
-      backgroundColor: '#00a9ff',
-    },
-  ],
-});*/
-
-const cal = () => {
+function Calendar() {
   return (
     <div>
-      <div className='Calendar'>
-        Calendar
-      </div>
-      <Footer />
+      <FullCalendar
+        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+        initialView={"dayGridMonth"}
+        headerToolbar={{
+          start: "today prev,next", // will normally be on the left. if RTL, will be on the right
+          center: "title",
+          end: "dayGridMonth,timeGridWeek,timeGridDay", // will normally be on the right. if RTL, will be on the left
+        }}
+        height={"90vh"}
+      />
     </div>
-  )
+  );
 }
 
-export default cal
+export default Calendar;
