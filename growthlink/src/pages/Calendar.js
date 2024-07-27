@@ -1,45 +1,29 @@
-import React from 'react'
-import Footer from '../components/Footer';
-import './Calendar.css';
-// import Calendar from '@toast-ui/calendar';
-import '@toast-ui/calendar/dist/toastui-calendar.min.css';
+import React from 'react';
+import { useEventsContext } from '../assets/EventsContext'; // Import context
+import FullCalendar from '@fullcalendar/react';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import interactionPlugin from '@fullcalendar/interaction';
+import timeGridPlugin from '@fullcalendar/timegrid';
 
-/*const calendar = new Calendar('#calendar', {
-  usageStatistics: false,
-  defaultView: 'week',
-  template: {
-    time(event) {
-      const { start, end, title } = event;
+function Calendar() {
+  const { calendarEvents } = useEventsContext(); 
+  console.log(calendarEvents)
 
-      return `<span style="color: white;">${formatTime(start)}~${formatTime(end)} ${title}</span>`;
-    },
-    allday(event) {
-      return `<span style="color: gray;">${event.title}</span>`;
-    },
-  },
-  calendars: [
-    {
-      id: 'cal1',
-      name: 'Personal',
-      backgroundColor: '#03bd9e',
-    },
-    {
-      id: 'cal2',
-      name: 'Work',
-      backgroundColor: '#00a9ff',
-    },
-  ],
-});*/
-
-const cal = () => {
   return (
     <div>
-      <div className='Calendar'>
-        Calendar
-      </div>
-      <Footer />
+      <FullCalendar
+        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+        initialView="dayGridMonth"
+        headerToolbar={{
+          start: 'today prev,next',
+          center: 'title',
+          end: 'dayGridMonth,timeGridWeek,timeGridDay',
+        }}
+        height="90vh"
+        events={calendarEvents} 
+      />
     </div>
-  )
+  );
 }
 
-export default cal
+export default Calendar;

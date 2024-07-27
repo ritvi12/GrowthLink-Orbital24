@@ -11,9 +11,9 @@ const Dashboard = () => {
   return (
     <div>
       <center>
-      {bookmarkedEvents.length === 0 
-        ? ( <h1 className='heading'>No Bookmarked Events!</h1>)
-        : (<h1 className='heading'>Bookmarked Events!</h1>)}
+        {bookmarkedEvents.length === 0 
+          ? <h1 className='heading'>No Bookmarked Events!</h1>
+          : <h1 className='heading'>Bookmarked Events!</h1>}
       </center>
       <div className='grid-container'>
         {bookmarkedEvents.length === 0 ? (
@@ -31,15 +31,35 @@ const Dashboard = () => {
   );
 };
 
-const DashboardItem = (props) => {
-  const { name, description, Organisation, contact, date } = props.event;
-  const { bookmarkEvent } = useEventsContext();
+const DashboardItem = ({ event }) => {
+  const { name, description, Organisation, contact, date } = event;
+  const { bookmarkEvent, addEventsToCalendar, removeEventsFromCalendar, calendarEvents } = useEventsContext();
+
+  const isEventInCalendar = calendarEvents.some(e => e.title === name && e.start === date);
+
+  const handleAddToCalendar = () => {
+    const eventToAdd = {
+      title: name,
+      start: date, // Ensure these are in the correct format
+      end: date,   // Adjust end date as necessary
+    };
+
+    if (isEventInCalendar) {
+      removeEventsFromCalendar(eventToAdd);
+    } else {
+      addEventsToCalendar(eventToAdd);
+    }
+  };
 
   return (
     <div className='posting'>
       <div className='title'>
         <h3>{name}</h3>
-        <FaBookmark className={'bookmark-icon bookmarked'} onClick={() => bookmarkEvent(props.event)} />
+        <FaBookmark
+          className={'bookmark-icon'}
+          onClick={() => bookmarkEvent(event)}
+        />
+
         <p className='posting-org'><strong>From: {Organisation}</strong></p>
       </div>
       <div className='content'>
@@ -48,7 +68,13 @@ const DashboardItem = (props) => {
         <p><strong>Application Deadline:</strong> {date}</p>
       </div>
       <div className='buttons'>
-        <Button buttonSize='btn--small' buttonStyle='btn--primary'>ADD TO CALENDAR</Button>
+        <Button
+          buttonSize='btn--small'
+          buttonStyle='btn--primary'
+          onClick={handleAddToCalendar}
+        >
+          {isEventInCalendar ? 'ADDED TO CALENDAR' : 'ADD TO CALENDAR'}
+        </Button>
       </div>
     </div>
   );
