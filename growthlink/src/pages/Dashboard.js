@@ -33,7 +33,9 @@ const Dashboard = () => {
 
 const DashboardItem = ({ event }) => {
   const { name, description, Organisation, contact, date } = event;
-  const { bookmarkEvent, addEventsToCalendar } = useEventsContext();
+  const { bookmarkEvent, addEventsToCalendar, removeEventsFromCalendar, calendarEvents } = useEventsContext();
+
+  const isEventInCalendar = calendarEvents.some(e => e.title === name && e.start === date);
 
   const handleAddToCalendar = () => {
     const eventToAdd = {
@@ -41,7 +43,12 @@ const DashboardItem = ({ event }) => {
       start: date, // Ensure these are in the correct format
       end: date,   // Adjust end date as necessary
     };
-    addEventsToCalendar(eventToAdd);
+
+    if (isEventInCalendar) {
+      removeEventsFromCalendar(eventToAdd);
+    } else {
+      addEventsToCalendar(eventToAdd);
+    }
   };
 
   return (
@@ -60,13 +67,16 @@ const DashboardItem = ({ event }) => {
         <p><strong>Application Deadline:</strong> {date}</p>
       </div>
       <div className='buttons'>
-        <Button buttonSize='btn--small' buttonStyle='btn--primary' onClick={handleAddToCalendar}>
-          ADD TO CALENDAR
+        <Button
+          buttonSize='btn--small'
+          buttonStyle='btn--primary'
+          onClick={handleAddToCalendar}
+        >
+          {isEventInCalendar ? 'ADDED TO CALENDAR' : 'ADD TO CALENDAR'}
         </Button>
       </div>
     </div>
   );
 };
-
 
 export default Dashboard;

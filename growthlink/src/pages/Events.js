@@ -60,22 +60,21 @@ const Events = () => {
     // Default values if properties are missing
     const eventDate = new Date(event.ApplicationPeriod || '');
     const searchDateObj = isDate(selectedDate) ? new Date(selectedDate) : null;
-  
+
     // Check if the event name or organization matches the search query
     const queryLower = searchQuery.toLowerCase();
     const matchesName = (event.Name || '').toLowerCase().includes(queryLower);
     const matchesOrganization = (event.Organisation || '').toLowerCase().includes(queryLower);
-  
+
     // Check if the event date is less than the selected date
     const matchesDate = searchDateObj ? eventDate < searchDateObj : true;
-  
+
     // Check if the event organization matches the selected organizations
-    const matchesOrgSelection = selectedOrganizations.length === 0 || (event.Organisation || '').trim();
-  
+    const matchesOrgSelection = selectedOrganizations.length === 0 || selectedOrganizations.includes(event.Organisation?.trim());
+
     // Combine all match conditions
     return (matchesName || matchesOrganization) && matchesDate && matchesOrgSelection;
   });
-  
 
   return (
     <div className='main-content'>
@@ -134,15 +133,22 @@ const Events = () => {
 
 const Frame = (props) => {
   const { name, description, Organisation, contact, date } = props;
-  const { bookmarkEvent, bookmarkedEvents, addEvent } = useEventsContext();
+  const { bookmarkEvent, bookmarkedEvents, addEventsToCalendar, removeEventsFromCalendar, calendarEvents } = useEventsContext();
   const isBookmarked = bookmarkedEvents.some(bookmark => bookmark.name === name);
+  const isEventInCalendar = calendarEvents.some(e => e.title === name && e.start === date);
+
   const handleAddToCalendar = () => {
     const eventToAdd = {
       title: name,
       start: date, // Ensure these are in the correct format
       end: date,   // Adjust end date as necessary
     };
-    addEvent(eventToAdd);
+
+    if (isEventInCalendar) {
+      removeEventsFromCalendar(eventToAdd);
+    } else {
+      addEventsToCalendar(eventToAdd);
+    }
   };
 
   return (
@@ -150,8 +156,8 @@ const Frame = (props) => {
       <div className='title'>
         <h3>{name}</h3>
         {isBookmarked 
-          ? <FaBookmark className={'bookmark-icon bookmarked'} onClick={() => bookmarkEvent(props)}/> 
-          : <FaRegBookmark className={`bookmark-icon`} onClick={() => bookmarkEvent(props)}/>
+          ? <FaBookmark className={'bookmark-icon bookmarked'} onClick={() => bookmarkEvent(props)} /> 
+          : <FaRegBookmark className='bookmark-icon' onClick={() => bookmarkEvent(props)} />
         }
         <p className='posting-org'><strong>From: {Organisation}</strong></p>
       </div>
@@ -161,8 +167,12 @@ const Frame = (props) => {
         <p><strong>Application Deadline:</strong> {date}</p>
       </div>
       <div className='buttons'>
-        <Button buttonSize='btn--small' buttonStyle='btn--primary' onClick={handleAddToCalendar}>
-          ADD TO CALENDAR
+        <Button
+          buttonSize='btn--small'
+          buttonStyle='btn--primary'
+          onClick={handleAddToCalendar}
+        >
+          {isEventInCalendar ? 'ADDED TO CALENDAR' : 'ADD TO CALENDAR'}
         </Button>
       </div>
     </div>

@@ -1,14 +1,13 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { useAuthValue } from './AuthContext';
-import { arrayRemove, arrayUnion, onSnapshot, updateDoc, doc, collection, deleteDoc, addDoc } from 'firebase/firestore';
+import { arrayRemove, arrayUnion, onSnapshot, updateDoc, doc, collection, deleteDoc, addDoc, getDoc } from 'firebase/firestore';
 import { db } from "../firebase";
 
 export const EventContext = createContext();
 
 export function useEventsContext() {
-    const value = useContext(EventContext);
-    return value;
+    return useContext(EventContext);
 }
 
 export function EventsProvider({ children }) {
@@ -16,7 +15,8 @@ export function EventsProvider({ children }) {
     const [bookmarkedEvents, setBookmarkedEvents] = useState([]);
     const [posts, setPosts] = useState([]);
     const [events, setEvents] = useState([]);
-    const [calendarEvents, setCalendarEvents] = useState([]); 
+    const [calendarEvents, setCalendarEvents] = useState([]);
+
     useEffect(() => {
         const token = window.localStorage.getItem("token");
         if (token) {
@@ -31,7 +31,9 @@ export function EventsProvider({ children }) {
         if (isLoggedIn) {
             const unsub = onSnapshot(doc(db, "GrowthLinkUsers", user.id), (doc) => {
                 const events = doc.data().bookmarkedEvents || [];
+                const calendar = doc.data().calendar || [];
                 setBookmarkedEvents(events);
+                setCalendarEvents(calendar);
             });
 
             const postsQuery = collection(db, 'Events');
@@ -66,14 +68,7 @@ export function EventsProvider({ children }) {
             await updateDoc(userRef, {
                 bookmarkedEvents: arrayUnion(event)
             });
-            setBookmarkedEvents(prevEvents => {
-                const newEvents = [...prevEvents];
-                const duplicateIndex = newEvents.findIndex(item => item.name === event.name);
-                if (duplicateIndex === -1) {
-                    newEvents.push(event);
-                }
-                return newEvents;
-            });
+            setBookmarkedEvents(prevEvents => [...prevEvents, event]);
             toast.success("Event bookmarked");
         }
     }
@@ -111,13 +106,37 @@ export function EventsProvider({ children }) {
             await updateDoc(userRef, {
                 calendar: arrayUnion(event)
             });
-            setCalendarEvents(prevEvents => [...prevEvents, event]); // Update local state
+            const docSnapshot = await getDoc(userRef);
+            const updatedCalendarEvents = docSnapshot.data().calendar || [];
+            setCalendarEvents(updatedCalendarEvents);
             toast.success("Event added to calendar successfully!");
         } catch (error) {
             console.error('Error adding event to calendar: ', error);
             toast.error('Error adding event to calendar. Please try again.');
         }
     }
+
+    async function removeEventsFromCalendar(event) {
+        if (!isLoggedIn) {
+            toast.error("Please Log In to remove events from calendar!");
+            return;
+        }
+
+        const userRef = doc(db, "GrowthLinkUsers", user.id);
+        try {
+            await updateDoc(userRef, {
+                calendar: arrayRemove(event)
+            });
+            const docSnapshot = await getDoc(userRef);
+            const updatedCalendarEvents = docSnapshot.data().calendar || [];
+            setCalendarEvents(updatedCalendarEvents);
+            toast.success("Event removed from calendar successfully!");
+        } catch (error) {
+            console.error('Error removing event from calendar: ', error);
+            toast.error('Error removing event from calendar. Please try again.');
+        }
+    }
+
     return (
         <EventContext.Provider value={{
             bookmarkEvent,
@@ -127,6 +146,7 @@ export function EventsProvider({ children }) {
             posts,
             events,
             addEventsToCalendar,
+            removeEventsFromCalendar,
             calendarEvents
         }}>
             {children}
