@@ -33,7 +33,7 @@ const Dashboard = () => {
 
 const DashboardItem = ({ event }) => {
   const { name, description, Organisation, contact, date } = event;
-  const { bookmarkEvent, addEvent } = useEventsContext();
+  const { bookmarkEvent, addEventsToCalendar } = useEventsContext();
 
   const handleAddToCalendar = () => {
     const eventToAdd = {
@@ -41,7 +41,7 @@ const DashboardItem = ({ event }) => {
       start: date, // Ensure these are in the correct format
       end: date,   // Adjust end date as necessary
     };
-    addEvent(eventToAdd);
+    addEventsToCalendar(eventToAdd);
   };
 
   return (

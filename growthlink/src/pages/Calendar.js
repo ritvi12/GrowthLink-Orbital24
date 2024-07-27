@@ -6,13 +6,13 @@ import interactionPlugin from '@fullcalendar/interaction';
 import timeGridPlugin from '@fullcalendar/timegrid';
 
 function Calendar() {
-  const { events } = useEventsContext(); // Get events from context
+  const { calendarEvents } = useEventsContext(); // Get events from context
 
   // Remove duplicate events
-  const removeDuplicates = (events) => {
+  const removeDuplicates = (calendarEvents) => {
     const uniqueEvents = new Map();
   
-    events.forEach(event => {
+    calendarEvents.forEach(event => {
       const eventId = event.id; // or another unique identifier
       if (!uniqueEvents.has(eventId)) {
         uniqueEvents.set(eventId, event);
@@ -22,7 +22,7 @@ function Calendar() {
     return Array.from(uniqueEvents.values());
   };
   
-  const uniqueEvents = removeDuplicates(events);
+  const uniqueEvents = removeDuplicates(calendarEvents);
 
   return (
     <div>

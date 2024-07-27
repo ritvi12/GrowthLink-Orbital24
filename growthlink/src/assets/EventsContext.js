@@ -16,7 +16,7 @@ export function EventsProvider({ children }) {
     const [bookmarkedEvents, setBookmarkedEvents] = useState([]);
     const [posts, setPosts] = useState([]);
     const [events, setEvents] = useState([]);
-
+    const [calendarEvents, setCalendarEvents] = useState([]); 
     useEffect(() => {
         const token = window.localStorage.getItem("token");
         if (token) {
@@ -100,11 +100,24 @@ export function EventsProvider({ children }) {
         }
     }
 
-    // Add addEvent function
-    function addEvent(event) {
-        setEvents(prevEvents => [...prevEvents, event]);
-    }
+    async function addEventsToCalendar(event) {
+        if (!isLoggedIn) {
+            toast.error("Please Log In to add events to calendar!");
+            return;
+        }
 
+        const userRef = doc(db, "GrowthLinkUsers", user.id);
+        try {
+            await updateDoc(userRef, {
+                calendar: arrayUnion(event)
+            });
+            setCalendarEvents(prevEvents => [...prevEvents, event]); // Update local state
+            toast.success("Event added to calendar successfully!");
+        } catch (error) {
+            console.error('Error adding event to calendar: ', error);
+            toast.error('Error adding event to calendar. Please try again.');
+        }
+    }
     return (
         <EventContext.Provider value={{
             bookmarkEvent,
@@ -112,8 +125,9 @@ export function EventsProvider({ children }) {
             addPost,
             deletePost,
             posts,
-            addEvent, // Add addEvent to the context value
-            events
+            events,
+            addEventsToCalendar,
+            calendarEvents
         }}>
             {children}
         </EventContext.Provider>
