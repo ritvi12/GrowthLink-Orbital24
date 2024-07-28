@@ -4,6 +4,7 @@ import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import timeGridPlugin from '@fullcalendar/timegrid';
+import Footer from '../components/Footer';
 
 function Calendar() {
   const { calendarEvents } = useEventsContext(); 
@@ -22,6 +23,7 @@ function Calendar() {
         height="90vh"
         events={calendarEvents} 
       />
+      <Footer />
     </div>
   );
 }
