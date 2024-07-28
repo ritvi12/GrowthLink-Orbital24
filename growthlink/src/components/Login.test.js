@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import LogIn from './LogIn';
 import { AuthProvider, useAuthValue } from '../assets/AuthContext';
@@ -141,6 +141,8 @@ describe('LogIn', () => {
         });
 
         // Verify console.error was called with expected arguments
-        expect(console.error).toHaveBeenCalledWith('Login failed', expect.any(Error));
+        await waitFor(() => {
+            expect(console.error).toHaveBeenCalledWith('Login failed', expect.any(Error));
+        });
     });
 });
