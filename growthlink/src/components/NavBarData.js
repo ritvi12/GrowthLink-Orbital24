@@ -11,7 +11,7 @@ export const NavBarData = [
         cName: 'nav-text'
     },
     {
-        title: 'DashBoard',
+        title: 'Bookmarks',
         path: '/dashboard',
         icon: <PiIcons.PiSquaresFourBold />,
         cName: 'nav-text'
@@ -29,6 +29,12 @@ export const adminNavBarData = [
         title: 'Home',
         path: '/home',
         icon: <AiIcons.AiFillHome />,
+        cName: 'nav-text'
+    },
+    {
+        title: 'Bookmarks',
+        path: '/dashboard',
+        icon: <PiIcons.PiSquaresFourBold />,
         cName: 'nav-text'
     },
     {
