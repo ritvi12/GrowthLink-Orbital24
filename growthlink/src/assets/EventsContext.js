@@ -14,7 +14,6 @@ export function EventsProvider({ children }) {
     const { isLoggedIn, user, setUser, setLoggedIn } = useAuthValue();
     const [bookmarkedEvents, setBookmarkedEvents] = useState([]);
     const [posts, setPosts] = useState([]);
-    const [events, setEvents] = useState([]);
     const [calendarEvents, setCalendarEvents] = useState([]);
 
     useEffect(() => {
@@ -153,7 +152,6 @@ export function EventsProvider({ children }) {
             addPost,
             deletePost,
             posts,
-            events,
             addEventsToCalendar,
             removeEventsFromCalendar,
             calendarEvents
