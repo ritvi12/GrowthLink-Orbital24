@@ -13,7 +13,7 @@ export const NavBarData = [
     {
         title: 'Bookmarks',
         path: '/dashboard',
-        icon: <PiIcons.PiSquaresFourBold />,
+        icon: <FaIcons.FaRegBookmark />,
         cName: 'nav-text'
     },
     {
