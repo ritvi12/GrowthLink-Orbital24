@@ -12,8 +12,9 @@ function Calendar() {
 
   return (
     <div>
+      {/* The fullcalendar API was integrated using the source code from:  https://github.com/soriya2/reactjs-Fullcalendar and we edited and added functions from there. */}
       <FullCalendar
-        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]} 
         initialView="dayGridMonth"
         headerToolbar={{
           start: 'today prev,next',
